@@ -12,6 +12,8 @@ namespace SignalRDine.Api.Mapping
             CreateMap<Product,GetProductDto>().ReverseMap();
             CreateMap<Product,CreateProductDto>().ReverseMap();
             CreateMap<Product,UpdateProductDto>().ReverseMap();
+            CreateMap<Product, ResultProductWithCategoryDto>()
+            .ForMember(x => x.CategoryName, opt => opt.MapFrom(src => src.Category.CategoryName));
         }
     }
 }

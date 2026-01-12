@@ -57,5 +57,13 @@ namespace SignalRDine.Api.Controllers
             _productService.TUpdate(value);
             return Ok("Ürün Başarıyla Güncellendi");
         }
+
+        [HttpGet("ProductListWithCategory")]
+        public IActionResult ProductListWithCategory()
+        {
+            var values=_productService.TGetProductsWithCategories();
+            return Ok(_mapper.Map<List<ResultProductWithCategoryDto>>(values));
+
+        }
     }
 }

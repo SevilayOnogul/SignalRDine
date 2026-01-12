@@ -1,19 +1,21 @@
-﻿using SignalRDine.DataAccessLayer.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using SignalRDine.DataAccessLayer.Abstract;
 using SignalRDine.DataAccessLayer.Concrete;
 using SignalRDine.DataAccessLayer.Repositories;
 using SignalRDine.EntityLayer.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SignalRDine.DataAccessLayer.EntityFramework
+public class EfProductDal : GenericRepository<Product>, IProductDal
 {
-    public class EfProductDal : GenericRepository<Product>, IProductDal
+    private readonly SignalRDineContext _context; 
+
+    public EfProductDal(SignalRDineContext context) : base(context)
     {
-        public EfProductDal(SignalRDineContext context) : base(context)
-        {
-        }
+        _context = context; 
+    }
+
+    public List<Product> GetProductsWithCategories()
+    {
+        var values = _context.Products.Include(x => x.Category).ToList();
+        return values;
     }
 }
