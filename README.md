@@ -8,7 +8,8 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 * **Bağlantı Ayarları:** Entity Framework Core kullanılarak SQL Server bağlantısı yapıldı.
 * **İlk Göç (Migration):** Veritabanı tabloları kod tarafında oluşturulup SQL tarafına başarıyla aktarıldı.
 * **DTO ve AutoMapper:** Veri güvenliği için **DTO** yapısı kurgulandı ve tüm dönüşümler için **AutoMapper** entegrasyonu tamamlandı.
-* **API Endpoints:** Tüm nesneler için CRUD işlemlerini yöneten profesyonel API uç noktaları yazıldı.
+* **İlişkisel Veri Yapısı:** Ürünler ve Kategoriler arasında bire-çok ilişki (Foreign Key) kurgulandı; veri tutarlılığı sağlandı.
+* **Gelişmiş API Sorguları:** Entity Framework **Include** metodu kullanılarak, ilişkili tabloların tek bir istekte (Product with Category) dönülmesi sağlandı.
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
@@ -17,11 +18,9 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 4. **SignalRDine.EntityLayer:** Veritabanı tablolarının karşılığı olan sınıflar.
 5. **SignalRDine.DtoLayer:** Veri taşıma nesnelerinin (DTO) bulunduğu katman.
 
-
-
 ## 🚀 Kullanılan Teknolojiler
 * .NET 8
-* Entity Framework Core
+* Entity Framework Core (Code First & Fluent API)
 * **AutoMapper**
 * SignalR (Real-time)
 * MS SQL Server
