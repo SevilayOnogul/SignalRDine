@@ -38,7 +38,7 @@ namespace SignalRDine.Api.Controllers
             return Ok("Kategori Eklendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCategory(int id) 
         { 
             var value=_categoryService.TGetByID(id);
@@ -59,7 +59,7 @@ namespace SignalRDine.Api.Controllers
             return Ok("Güncelleme Yapıldı");
         }
 
-        [HttpGet("GetCategory")]
+        [HttpGet("{id}")]
         public IActionResult GetCategory(int id) 
         { 
             var value=_categoryService.TGetByID(id);
