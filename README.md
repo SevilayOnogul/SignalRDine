@@ -9,6 +9,7 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 * **İlişkisel Veri Yapısı:** Ürünler ve Kategoriler arasında bire-çok ilişki kurgulandı; **Include** metodu ile ilişkili verilerin çekilmesi sağlandı.
 * **Admin Paneli Hazırlığı:** UI tarafında projenin ana iskeletini oluşturacak olan **Admin Layout** yapısı kuruldu.
 * **Dinamik Tema Entegrasyonu:** Admin paneli için modern bir tema entegre edildi ve tüm sayfaların bu iskelet üzerinden yönetilmesi için gerekli `AdminLayoutController` yapısı oluşturuldu.
+* **API Tüketimi (Consume):** `IHttpClientFactory` kullanılarak API uç noktaları WebUI tarafında tüketildi. Kategori listeleme ve asenkron silme işlemleri başarıyla entegre edildi.
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
