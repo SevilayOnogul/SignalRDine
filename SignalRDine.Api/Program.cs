@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using SignalRDine.Api.Hubs;
 using SignalRDine.Api.Mapping;
 using SignalRDine.BusinessLayer.Abstract;
 using SignalRDine.BusinessLayer.Concrete;
@@ -10,6 +11,18 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.AllowAnyHeader()
+        .AllowAnyMethod()
+        .SetIsOriginAllowed((host) => true)
+        .AllowCredentials();
+    });
+});
+builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<SignalRDineContext>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -55,10 +68,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<SignalRHub>("/signalrhub");
 app.Run();
