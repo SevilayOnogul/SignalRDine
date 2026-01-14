@@ -18,6 +18,8 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
     * **Discount** (Günün İndirimleri)
     * **SocialMedia** (Sosyal Medya)
     * **Testimonial** (Müşteri Yorumları/Referanslar)
+* **SignalR Entegrasyonu Başlatıldı:** İstemci tarafı kütüphaneleri yüklendi ve WebUI ile API arasında ilk bağlantı köprüsü kuruldu.
+      
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
