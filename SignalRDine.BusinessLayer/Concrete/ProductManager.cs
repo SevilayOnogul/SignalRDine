@@ -38,7 +38,12 @@ namespace SignalRDine.BusinessLayer.Concrete
             return _productDal.GetListAll();
         }
 
-        public List<Product> TGetProductsWithCategories()
+		public int TProductCount()
+		{
+			return _productDal.GetProductCount();
+		}
+
+		public List<Product> TGetProductsWithCategories()
         {
             return _productDal.GetProductsWithCategories();
         }
@@ -47,5 +52,35 @@ namespace SignalRDine.BusinessLayer.Concrete
         {
             _productDal.Update(entity);
         }
-    }
+
+		public int TProductCountByCategoryNameHamburger()
+		{
+			return _productDal.ProductCountByCategoryNameHamburger();
+		}
+
+		public int TProductCountByCategoryNameDrink()
+		{
+			return _productDal.ProductCountByCategoryNameDrink();
+		}
+
+		public decimal TProductPriceAvg()
+		{
+			return _productDal.ProductPriceAvg();
+		}
+
+		public string TProductNameByMaxPrice()
+		{
+			return _productDal.ProductNameByMaxPrice();
+		}
+
+		public string TProductNameByMinPrice()
+		{
+			return _productDal.ProductNameByMinPrice();
+		}
+
+		public decimal TProductAvgPriceByHamburger()
+		{
+			return _productDal.ProductAvgPriceByHamburger();
+		}
+	}
 }

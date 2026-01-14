@@ -13,9 +13,51 @@ public class EfProductDal : GenericRepository<Product>, IProductDal
         _context = context; 
     }
 
-    public List<Product> GetProductsWithCategories()
+	public int GetProductCount()
+	{
+        return _context.Products.Count();
+	}
+
+	public List<Product> GetProductsWithCategories()
     {
         var values = _context.Products.Include(x => x.Category).ToList();
         return values;
     }
+
+	public int ProductCountByCategoryNameDrink()
+	{
+		return _context.Products.Where(x=>x.CategoryID==(_context.Categories.Where(y=>y.CategoryName=="İçecek").Select(z=>z.CategoryID).FirstOrDefault())).Count();
+	}
+
+	public int ProductCountByCategoryNameHamburger()
+	{
+		return _context.Products.Where(x => x.CategoryID == (_context.Categories.Where(y => y.CategoryName == "Hamburger").Select(z => z.CategoryID).FirstOrDefault())).Count();
+	}
+
+	public string ProductNameByMaxPrice()
+	{
+		return _context.Products.OrderByDescending(x => x.Price).Select(y => y.ProductName).FirstOrDefault();
+		//return _context.Products.Where(x => x.Price == (_context.Products.Max(y => y.Price))).Select(z => z.ProductName).FirstOrDefault();
+	}
+
+	public string ProductNameByMinPrice()
+	{
+		//return _context.Products.Where(x => x.Price == (_context.Products.Min(y => y.Price))).Select(z => z.ProductName).FirstOrDefault();
+		return _context.Products.OrderBy(x => x.Price).Select(y => y.ProductName).FirstOrDefault();
+	}
+
+	public decimal ProductPriceAvg()
+	{
+		return _context.Products.Average(x => x.Price);
+	}
+
+	public decimal ProductAvgPriceByHamburger()
+	{
+		return _context.Products
+		.Where(x => x.Category.CategoryName == "Hamburger")
+		.Average(c => c.Price);
+
+		//return _context.Products
+		//	.Where(x=>x.CategoryID==(_context.Categories.Where(y=>y.CategoryName=="Hamburger").Select(z=>z.CategoryID).FirstOrDefault())).Average(c=>c.Price);
+	}
 }
