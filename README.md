@@ -11,6 +11,13 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 * **Dinamik Tema Entegrasyonu:** Admin paneli için modern bir tema entegre edildi ve tüm sayfaların bu iskelet üzerinden yönetilmesi için gerekli `AdminLayoutController` yapısı oluşturuldu.
 * **API Tüketimi (Consume):** `IHttpClientFactory` kullanılarak API uç noktaları WebUI tarafında tüketildi. Kategori ve Ürün verilerinin asenkron olarak yönetilmesi sağlandı.
 * **Ürün ve Kategori Entegrasyonu:** Ürün ekleme ve güncelleme süreçlerinde, kategorilerin dinamik bir şekilde API üzerinden çekilerek `SelectListItem` yapısıyla dropdown (açılır liste) olarak sunulması sağlandı.
+* **Tüm Modüllerin CRUD Tamamlanması:** Aşağıdaki modüller için asenkron listeleme, ekleme, silme ve güncelleme operasyonları API ile tam entegre edildi:
+    * **About** (Hakkımızda)
+    * **Booking** (Rezervasyon)
+    * **Contact** (İletişim)
+    * **Discount** (Günün İndirimleri)
+    * **SocialMedia** (Sosyal Medya)
+    * **Testimonial** (Müşteri Yorumları/Referanslar)
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
@@ -24,7 +31,7 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 * .NET 8
 * Entity Framework Core (Code First & Fluent API)
 * **AutoMapper**
-* SignalR (Real-time)
+* SignalR (Real-time / Anlık Veri)
 * MS SQL Server
 * ASP.NET Core MVC (Layout & View Engine)
 * Swagger / OpenAPI
