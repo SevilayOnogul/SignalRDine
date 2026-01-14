@@ -55,7 +55,7 @@ namespace SignalRDine.Api.Controllers
             return Ok("İletişim Bilgisi Güncellendi");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteContact(int id)
         {
             var value=_contactService.TGetByID(id);
@@ -63,7 +63,7 @@ namespace SignalRDine.Api.Controllers
             return Ok("İletişim Bilgisi Silindi");
         }
 
-        [HttpGet("GetContact")]
+        [HttpGet("{id}")]
         public IActionResult GetContact(int id)
         {
             var value=_contactService.TGetByID(id);
