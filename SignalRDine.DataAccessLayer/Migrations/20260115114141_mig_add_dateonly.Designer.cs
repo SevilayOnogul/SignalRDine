@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalRDine.DataAccessLayer.Concrete;
 
@@ -11,9 +12,11 @@ using SignalRDine.DataAccessLayer.Concrete;
 namespace SignalRDine.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRDineContext))]
-    partial class SignalRDineContextModelSnapshot : ModelSnapshot
+    [Migration("20260115114141_mig_add_dateonly")]
+    partial class mig_add_dateonly
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,26 +194,6 @@ namespace SignalRDine.DataAccessLayer.Migrations
                     b.HasKey("FeatureID");
 
                     b.ToTable("Features");
-                });
-
-            modelBuilder.Entity("SignalRDine.EntityLayer.Entities.MenuTable", b =>
-                {
-                    b.Property<int>("MenuTableID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MenuTableID"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.HasKey("MenuTableID");
-
-                    b.ToTable("MenuTables");
                 });
 
             modelBuilder.Entity("SignalRDine.EntityLayer.Entities.MoneyCase", b =>

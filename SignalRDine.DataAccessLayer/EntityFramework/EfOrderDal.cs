@@ -20,12 +20,19 @@ namespace SignalRDine.DataAccessLayer.EntityFramework
 
 		public int ActiveOrderCount()
 		{
-			return _context.Orders.Where(x=>x.Description=="Müşteri Masada").Count();
+			return _context.Orders.Where(x => x.Description == "Müşteri Masada").Count();
 		}
 
 		public decimal LastOrderPrice()
 		{
 			return _context.Orders.OrderByDescending(x => x.OrderID).Select(y => y.TotalPrice).FirstOrDefault();
+		}
+
+		public decimal TodayTotalPrice()
+		{
+			return _context.Orders
+		.Where(x => x.OrderDate == DateTime.Today)
+		.Sum(y => (decimal?)y.TotalPrice) ?? 0;
 		}
 
 		public int TotalOrderCount()

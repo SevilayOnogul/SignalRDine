@@ -26,7 +26,8 @@ public class EfProductDal : GenericRepository<Product>, IProductDal
 
 	public int ProductCountByCategoryNameDrink()
 	{
-		return _context.Products.Where(x=>x.CategoryID==(_context.Categories.Where(y=>y.CategoryName=="İçecek").Select(z=>z.CategoryID).FirstOrDefault())).Count();
+		return _context.Products.Count(x => x.Category.CategoryName == "İçecek");
+		//return _context.Products.Where(x=>x.CategoryID==(_context.Categories.Where(y=>y.CategoryName=="İçecek").Select(z=>z.CategoryID).FirstOrDefault())).Count();
 	}
 
 	public int ProductCountByCategoryNameHamburger()
