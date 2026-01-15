@@ -18,8 +18,9 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
     * **Discount** (Günün İndirimleri)
     * **SocialMedia** (Sosyal Medya)
     * **Testimonial** (Müşteri Yorumları/Referanslar)
-* **SignalR Entegrasyonu Başlatıldı:** İstemci tarafı kütüphaneleri yüklendi ve WebUI ile API arasında ilk bağlantı köprüsü kuruldu.
-      
+* **SignalR & Real-Time İstatistik Altyapısı:** * İstemci tarafı kütüphaneleri yüklendi ve WebUI ile API arasında anlık bağlantı köprüsü kuruldu.
+    * **Dependency Injection** mimarisi korunarak Dashboard istatistikleri için gerekli Repository metotları geliştirildi.
+    * En pahalı/ucuz ürün, son sipariş tutarı ve kategori sayıları gibi veriler için optimize edilmiş LINQ sorguları tamamlandı.
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
@@ -33,7 +34,7 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 * .NET 8
 * Entity Framework Core (Code First & Fluent API)
 * **AutoMapper**
-* SignalR (Real-time / Anlık Veri)
+* **SignalR** (Real-time / Anlık Veri)
 * MS SQL Server
 * ASP.NET Core MVC (Layout & View Engine)
 * Swagger / OpenAPI
