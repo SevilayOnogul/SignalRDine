@@ -1,32 +1,36 @@
-# SignalRDine - Restoran Yönetim Sistemi
+# SignalRDine - Real-Time Restoran Yönetim Sistemi
 
-Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletişimi sağlayan bir restoran yönetim sistemidir.
+Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri iletişimi (Real-Time) sağlayan kapsamlı bir restoran yönetim ve dashboard sistemidir.
 
-## 🛠️ Şu Ana Kadar Neler Yapıldı?
-* **Mimari Kurulum:** Proje, profesyonel standartlara uygun olarak **6 katmanlı (N-Tier)** yapıda kuruldu.
-* **Veritabanı Tasarımı:** Restoran ihtiyaçlarına yönelik tablolar tasarlandı ve EF Core ile SQL Server bağlantısı yapıldı.
-* **DTO ve AutoMapper:** Veri güvenliği için DTO yapısı kurgulandı ve AutoMapper entegrasyonu tamamlandı.
-* **İlişkisel Veri Yapısı:** Ürünler ve Kategoriler arasında bire-çok ilişki kurgulandı; **Include** metodu ile ilişkili verilerin çekilmesi sağlandı.
-* **Admin Paneli & Tema:** Modern bir admin teması entegre edildi ve UI tarafı `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron şekilde bağlandı.
-* **CRUD Operasyonları:** About, Booking, Contact, Discount, SocialMedia ve Testimonial modülleri API üzerinden tam entegre edildi.
-* **SignalR & Real-Time İstatistik:** Dashboard üzerindeki verilerin (en pahalı ürün, kategori sayısı vb.) anlık güncellenmesi için SignalR altyapısı ve optimize edilmiş LINQ sorguları geliştirildi.
+## 🛠️ Yapılan Geliştirmeler
+* **Mimari Kurulum:** Proje, profesyonel standartlara uygun olarak **6 katmanlı (N-Tier)** yapıda kurgulandı.
+* **Veritabanı Tasarımı:** EF Core kullanılarak ilişkisel bir yapı oluşturuldu; Products ve Categories arasında bire-çok ilişki sağlandı.
+* **SignalR & Real-Time Dashboard:** * Dashboard üzerindeki tüm veriler (Anlık Kasa, Sipariş Sayısı, Ortalama Fiyatlar vb.) sayfa yenilenmeden anlık olarak güncellenmektedir.
+    * İstatistikler için optimize edilmiş kompleks **LINQ** sorguları geliştirildi.
 * **Finansal Mantık & Kasa Yönetimi:** * **Automated Case Tracking:** SQL Trigger kullanılarak, sipariş tamamlandığında kasa (`MoneyCase`) toplamının otomatik güncellenmesi sağlandı.
-    * **Precise Date Reporting:** `DateTime` ve SQL `Date` tipi arasındaki uyumsuzluklar, Data Annotation (`[Column(TypeName="Date")]`) kullanılarak çözüldü.
-    * **Daily Earnings:** Günlük toplam ciroyu (`TodayTotalPrice`) hesaplayan hatasız raporlama mantığı kuruldu.
+    * **Precise Date Reporting:** Günlük ciroyu (TodayCash) hatasız hesaplamak için SQL ve .NET tarafındaki tarih uyumsuzlukları Data Annotation ve özel filtrelerle çözüldü.
+* **Admin Paneli & UI:** `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron iletişim kuruldu. Modern bir admin teması entegre edilerek kullanıcı deneyimi artırıldı.
+* **CRUD Operasyonları:** Menü yönetimi, rezervasyon sistemi, iletişim bilgileri ve sosyal medya modülleri tam entegre çalışmaktadır.
 
 ## 🏗️ Katman Yapısı
-1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
-2. **SignalRDine.BusinessLayer:** İş mantığının ve kontrollerin yapıldığı yer.
-3. **SignalRDine.DataAccessLayer:** Veritabanı erişim ve Repository katmanı.
-4. **SignalRDine.EntityLayer:** Veritabanı tablolarının karşılığı olan sınıflar.
-5. **SignalRDine.DtoLayer:** Veri taşıma nesnelerinin (DTO) bulunduğu katman.
-6. **SignalRDine.WebUI:** Kullanıcı arayüzü ve Admin panelinin yönetildiği katman.
+1.  **SignalRDine.Api:** API uç noktaları ve Hub tanımlarının bulunduğu katman.
+2.  **SignalRDine.BusinessLayer:** İş mantığı ve validasyon süreçlerinin yönetildiği katman.
+3.  **SignalRDine.DataAccessLayer:** Entity Framework Core tabanlı Repository ve Context katmanı.
+4.  **SignalRDine.EntityLayer:** Veritabanı tablolarının karşılığı olan Domain nesneleri.
+5.  **SignalRDine.DtoLayer:** Veri güvenliği ve performans için tasarlanmış DTO sınıfları.
+6.  **SignalRDine.WebUI:** Kullanıcı arayüzü ve Admin panelinin (SignalR Client) bulunduğu katman.
 
 ## 🚀 Kullanılan Teknolojiler
 * **.NET 8**
 * **Entity Framework Core** (Code First & Fluent API)
-* **SignalR** (Real-time / Anlık Veri İletişimi)
-* **AutoMapper** (Nesne Eşleme)
+* **SignalR** (Real-time Data Communication)
+* **AutoMapper** (Object-to-Object Mapping)
 * **MS SQL Server** & **T-SQL Triggers**
-* **ASP.NET Core MVC** (Layout & View Engine)
-* **Swagger / OpenAPI**
+* **ASP.NET Core MVC** (Razor View Engine)
+* **Swagger / OpenAPI** (API Documentation)
+* **LineAwesome & FontAwesome** (UI Icons)
+
+## ⚙️ Kurulum
+1.  `appsettings.json` dosyasındaki **Connection String** bilgisini kendi yerel SQL Server adresinize göre düzenleyin.
+2.  Package Manager Console üzerinden `Update-Database` komutunu çalıştırarak tabloları ve initial verileri oluşturun.
+3.  Önce API projesini, ardından WebUI projesini çalıştırın.
