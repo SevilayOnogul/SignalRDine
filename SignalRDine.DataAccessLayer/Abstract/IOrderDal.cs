@@ -13,5 +13,6 @@ namespace SignalRDine.DataAccessLayer.Abstract
 		int ActiveOrderCount();
 		decimal LastOrderPrice();
 		decimal TodayTotalPrice();
+		decimal TodayCash();
 	}
 }

@@ -37,6 +37,11 @@ namespace SignalRDine.Api.Controllers
 			return Ok(_orderService.TTodayTotalPrice());
 		}
 
+		[HttpGet]
+		public IActionResult TodayCash()
+		{
+			return Ok(_orderService.TTodayCash());
+		}
 
 	}
 }

@@ -48,7 +48,12 @@ namespace SignalRDine.BusinessLayer.Concrete
 			return _orderDal.LastOrderPrice();
 		}
 
-		public decimal TTodayTotalPrice()
+        public decimal TTodayCash()
+        {
+            return _orderDal.TodayCash();
+        }
+
+        public decimal TTodayTotalPrice()
 		{
 			return _orderDal.TodayTotalPrice();
 		}

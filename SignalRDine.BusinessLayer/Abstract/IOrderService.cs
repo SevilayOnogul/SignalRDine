@@ -14,7 +14,9 @@ namespace SignalRDine.BusinessLayer.Abstract
 		int TActiveOrderCount();
 		decimal TLastOrderPrice();
 		decimal TTodayTotalPrice();
+        decimal TTodayCash();
 
 
-	}
+
+    }
 }

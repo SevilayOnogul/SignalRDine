@@ -28,7 +28,12 @@ namespace SignalRDine.DataAccessLayer.EntityFramework
 			return _context.Orders.OrderByDescending(x => x.OrderID).Select(y => y.TotalPrice).FirstOrDefault();
 		}
 
-		public decimal TodayTotalPrice()
+        public decimal TodayCash()
+        {
+            return _context.Orders.Where(x=>x.OrderDate==DateTime.Today).Sum(y=>y.TotalPrice);
+        }
+
+        public decimal TodayTotalPrice()
 		{
 			return _context.Orders
 		.Where(x => x.OrderDate == DateTime.Today)
