@@ -7,20 +7,12 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 * **Veritabanı Tasarımı:** Restoran ihtiyaçlarına yönelik tablolar tasarlandı ve EF Core ile SQL Server bağlantısı yapıldı.
 * **DTO ve AutoMapper:** Veri güvenliği için DTO yapısı kurgulandı ve AutoMapper entegrasyonu tamamlandı.
 * **İlişkisel Veri Yapısı:** Ürünler ve Kategoriler arasında bire-çok ilişki kurgulandı; **Include** metodu ile ilişkili verilerin çekilmesi sağlandı.
-* **Admin Paneli Hazırlığı:** UI tarafında projenin ana iskeletini oluşturacak olan **Admin Layout** yapısı kuruldu.
-* **Dinamik Tema Entegrasyonu:** Admin paneli için modern bir tema entegre edildi ve tüm sayfaların bu iskelet üzerinden yönetilmesi için gerekli `AdminLayoutController` yapısı oluşturuldu.
-* **API Tüketimi (Consume):** `IHttpClientFactory` kullanılarak API uç noktaları WebUI tarafında tüketildi. Kategori ve Ürün verilerinin asenkron olarak yönetilmesi sağlandı.
-* **Ürün ve Kategori Entegrasyonu:** Ürün ekleme ve güncelleme süreçlerinde, kategorilerin dinamik bir şekilde API üzerinden çekilerek `SelectListItem` yapısıyla dropdown (açılır liste) olarak sunulması sağlandı.
-* **Tüm Modüllerin CRUD Tamamlanması:** Aşağıdaki modüller için asenkron listeleme, ekleme, silme ve güncelleme operasyonları API ile tam entegre edildi:
-    * **About** (Hakkımızda)
-    * **Booking** (Rezervasyon)
-    * **Contact** (İletişim)
-    * **Discount** (Günün İndirimleri)
-    * **SocialMedia** (Sosyal Medya)
-    * **Testimonial** (Müşteri Yorumları/Referanslar)
-* **SignalR & Real-Time İstatistik Altyapısı:** * İstemci tarafı kütüphaneleri yüklendi ve WebUI ile API arasında anlık bağlantı köprüsü kuruldu.
-    * **Dependency Injection** mimarisi korunarak Dashboard istatistikleri için gerekli Repository metotları geliştirildi.
-    * En pahalı/ucuz ürün, son sipariş tutarı ve kategori sayıları gibi veriler için optimize edilmiş LINQ sorguları tamamlandı.
+* **Admin Paneli & Tema:** Modern bir admin teması entegre edildi ve UI tarafı `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron şekilde bağlandı.
+* **CRUD Operasyonları:** About, Booking, Contact, Discount, SocialMedia ve Testimonial modülleri API üzerinden tam entegre edildi.
+* **SignalR & Real-Time İstatistik:** Dashboard üzerindeki verilerin (en pahalı ürün, kategori sayısı vb.) anlık güncellenmesi için SignalR altyapısı ve optimize edilmiş LINQ sorguları geliştirildi.
+* **Finansal Mantık & Kasa Yönetimi:** * **Automated Case Tracking:** SQL Trigger kullanılarak, sipariş tamamlandığında kasa (`MoneyCase`) toplamının otomatik güncellenmesi sağlandı.
+    * **Precise Date Reporting:** `DateTime` ve SQL `Date` tipi arasındaki uyumsuzluklar, Data Annotation (`[Column(TypeName="Date")]`) kullanılarak çözüldü.
+    * **Daily Earnings:** Günlük toplam ciroyu (`TodayTotalPrice`) hesaplayan hatasız raporlama mantığı kuruldu.
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktalarının bulunduğu katman.
@@ -28,13 +20,13 @@ Bu proje, modern teknolojiler kullanılarak geliştirilmiş, anlık veri iletiş
 3. **SignalRDine.DataAccessLayer:** Veritabanı erişim ve Repository katmanı.
 4. **SignalRDine.EntityLayer:** Veritabanı tablolarının karşılığı olan sınıflar.
 5. **SignalRDine.DtoLayer:** Veri taşıma nesnelerinin (DTO) bulunduğu katman.
-6. **SignalRDine.WebUI:** Kullanıcı arayüzü ve Admin panelinin yönetildiği, API'yi tüketen katman.
+6. **SignalRDine.WebUI:** Kullanıcı arayüzü ve Admin panelinin yönetildiği katman.
 
 ## 🚀 Kullanılan Teknolojiler
-* .NET 8
-* Entity Framework Core (Code First & Fluent API)
-* **AutoMapper**
-* **SignalR** (Real-time / Anlık Veri)
-* MS SQL Server
-* ASP.NET Core MVC (Layout & View Engine)
-* Swagger / OpenAPI
+* **.NET 8**
+* **Entity Framework Core** (Code First & Fluent API)
+* **SignalR** (Real-time / Anlık Veri İletişimi)
+* **AutoMapper** (Nesne Eşleme)
+* **MS SQL Server** & **T-SQL Triggers**
+* **ASP.NET Core MVC** (Layout & View Engine)
+* **Swagger / OpenAPI**
