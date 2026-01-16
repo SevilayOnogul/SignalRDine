@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignalRDine.DataAccessLayer.Concrete;
 
@@ -11,9 +12,11 @@ using SignalRDine.DataAccessLayer.Concrete;
 namespace SignalRDine.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRDineContext))]
-    partial class SignalRDineContextModelSnapshot : ModelSnapshot
+    [Migration("20260116160240_mig_add_contact_new_columns")]
+    partial class mig_add_contact_new_columns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
