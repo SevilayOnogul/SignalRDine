@@ -22,6 +22,8 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
   `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron iletişim kurulmuş, modern bir admin teması entegre edilerek kullanıcı deneyimi artırılmıştır.
 * **CRUD Operasyonları:**  
   Menü yönetimi, rezervasyon sistemi, iletişim bilgileri ve sosyal medya modülleri tam entegre şekilde çalışmaktadır.
+* **Asenkron İşlemler (AJAX):** Menü ve ürün yönetim süreçlerinde sayfa yenilenmesini engellemek ve performansı artırmak amacıyla AJAX metotları entegre edildi.
+* **Dinamik Kategori & Ürün Yönetimi:** Menü öğeleri, API üzerinden gelen verilerle dinamik olarak listelenmekte ve kullanıcı etkileşimleri (ID takibi vb.) anlık olarak yönetilmektedir.
 
 ## 🏗️ Katman Yapısı
 1. **SignalRDine.Api:** API uç noktaları ve SignalR Hub tanımlarının bulunduğu katman  
