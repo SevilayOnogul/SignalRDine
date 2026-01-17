@@ -136,11 +136,12 @@
             event.preventDefault();
             var id = value;
             $.ajax({
-                type: 'post',
-                url: '', // Boş bırakırsan aynı sayfaya post eder
+                type: 'POST',
+                url: '/Menu/AddBasket/'+id, // Boş bırakırsan aynı sayfaya post eder
                 data: { item: id },
+                // contentType:'application/json,'
                 success: function () {
-                    Swal.fire("Başarılı!", "ID: " + id, "success");
+                    Swal.fire("Başarılı!Seçtiğiniz Ürün Sepete Eklendi!", "ID: " + id, "success");
                 },
                 error: function () {
                     alert("Hata oluştu! Console'u (F12) kontrol et.");

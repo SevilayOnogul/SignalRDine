@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using SignalRDine.WebUI.Dtos.BasketDtos;
 using SignalRDine.WebUI.Dtos.ProductDtos;
+using System.Text;
 
 namespace SignalRDine.WebUI.Controllers
 {
@@ -24,6 +26,36 @@ namespace SignalRDine.WebUI.Controllers
                 return View(values);
             }
             return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddBasket(int id)
+        {
+            CreateBasketDto createBasketDto = new CreateBasketDto();
+            createBasketDto.ProductID = id;
+            createBasketDto.MenuTableID = 1;
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createBasketDto);
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7263/api/Basket", content);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return Json(createBasketDto);
+        }
+
+        public async Task<IActionResult> DeleteBasket(int id)
+        {
+            id = int.Parse(TempData["id"].ToString());
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:7263/api/Basket/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return NoContent();
         }
     }
 }
