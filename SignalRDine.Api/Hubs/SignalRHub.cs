@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SignalRDine.BusinessLayer.Abstract;
 using SignalRDine.DataAccessLayer.Concrete;
+using SignalRDine.DataAccessLayer.Migrations;
 
 namespace SignalRDine.Api.Hubs
 {
@@ -12,8 +13,10 @@ namespace SignalRDine.Api.Hubs
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly IMenuTableService _menuTableService;
         private readonly IBookingService _bookingService;
+        private readonly INotificationService _notificationService;
 
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, IMenuTableService menuTableService, IBookingService bookingService)
+        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService,
+            IMenuTableService menuTableService, IBookingService bookingService, INotificationService notificationService)
         {
             _categoryService = categoryService;
             _productService = productService;
@@ -21,6 +24,7 @@ namespace SignalRDine.Api.Hubs
             _moneyCaseService = moneyCaseService;
             _menuTableService = menuTableService;
             _bookingService = bookingService;
+            _notificationService = notificationService;
         }
 
         public async Task SendStatistics()
@@ -95,6 +99,18 @@ namespace SignalRDine.Api.Hubs
         {
             var values = _bookingService.TGetListAll();
             await Clients.All.SendAsync("ReceiveBookingList", values);
+
+        }
+
+        public async Task SendNotification()
+        {
+            var values=_notificationService.TNotificationCountByStatusFalse();
+            await Clients.All.SendAsync("ReceiveNotificationCountByFalse", values);
+
+            var notificationListByFalse=_notificationService.TGetAllNotificationByFalse();
+            await Clients.All.SendAsync("ReceiveGetAllNotificationtByFalse", notificationListByFalse);
+
+
 
         }
     }
