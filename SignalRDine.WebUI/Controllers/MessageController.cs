@@ -8,5 +8,10 @@ namespace SignalRDine.WebUI.Controllers
         {
             return View();
         }
+
+        public IActionResult ClientUserCount()
+        {
+            return View();
+        }
     }
 }
