@@ -21,12 +21,17 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
   * **Modern Premium UI:** Masalar için gradyan renk geçişli, hover animasyonlu ve ikon bazlı modern bir dashboard arayüzü kurgulanmıştır.
   * **Canlı Bağlantı Göstergesi:** Sistemin API ile olan canlı bağlantısını doğrulayan, animasyonlu "Sistem Aktif" durum paneli entegre edilmiştir.
 
+* **SignalR ile Anlık Mesajlaşma (Chat) Modülü:**
+  * **Real-Time Chat:** Restoran içi kullanıcılar/personeller arasında anlık mesaj iletimi sağlayan Hub altyapısı kurulmuştur.
+  * **Zaman Damgalı İletişim:** Mesajların gönderen bilgisi ve profesyonel saat formatı (HH:mm) ile anlık listelenmesi sağlanmıştır.
+  * **UX Kontrolleri:** Sunucu bağlantısı kurulana kadar buton pasifize edilmesi ve mesaj sonrası input temizleme gibi kullanıcı deneyimi detayları eklenmiştir.
+
 * **Finansal Mantık & Kasa Yönetimi:** * **Automated Cash Tracking:** SQL Trigger kullanılarak, sipariş tamamlandığında kasa (`MoneyCase`) toplamının otomatik güncellenmesi sağlanmıştır.  
   * **Precise Date Reporting:** Günlük ciro (TodayCash) hesaplamalarında SQL ve .NET tarafındaki tarih uyumsuzlukları Data Annotation ve özel filtrelerle giderilmiştir.
 
 * **Admin Paneli & UI:** `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron iletişim kurulmuş, modern bir admin teması entegre edilerek kullanıcı deneyimi artırılmıştır.
 
-* **CRUD Operasyonleri:** Menü yönetimi, rezervasyon sistemi, iletişim bilgileri ve sosyal medya modülleri tam entegre şekilde çalışmaktadır.
+* **CRUD Operasyonları:** Menü yönetimi, rezervasyon sistemi, iletişim bilgileri ve sosyal medya modülleri tam entegre şekilde çalışmaktadır.
 
 * **Asenkron İşlemler (AJAX):** Menü ve ürün yönetim süreçlerinde sayfa yenilenmesini engellemek ve performansı artırmak amacıyla AJAX metotları entegre edilmiştir.
 
