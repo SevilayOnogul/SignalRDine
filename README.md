@@ -15,6 +15,7 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 * **SignalR & Real-Time Dashboard:** * Dashboard üzerindeki tüm veriler (Anlık Kasa, Sipariş Sayısı, Ortalama Fiyatlar vb.) sayfa yenilenmeden anlık olarak güncellenmektedir.  
   * **Progress Bar Entegrasyonu:** Restoran doluluk oranları, aktif siparişler ve kapasite verileri anlık olarak dolan ilerleme çubukları ile görselleştirilmiştir.  
   * İstatistikler için optimize edilmiş kompleks **LINQ** sorguları geliştirilmiştir.
+  * **Anlık Bağlantı Takibi (Client Counter):** Sisteme o an bağlı olan aktif kullanıcı sayısı, `OnConnectedAsync` ve `OnDisconnectedAsync` metodları üzerinden takip edilerek tüm panellerde anlık olarak güncellenmektedir.
 
 * **SignalR ile Anlık Masa Durum Takibi:**
   * **Real-Time Masa İzleme:** Restoran içerisindeki masaların doluluk durumları (Dolu/Boş) SignalR Hub üzerinden anlık olarak takip edilmektedir.
