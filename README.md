@@ -6,43 +6,37 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 
 ## 🛠️ Yapılan Geliştirmeler
 
-* **Dinamik UI Bileşenleri:**  
-  Ana sayfa üzerindeki Slider, Menü, Günün İndirimleri ve Müşteri Yorumları (Testimonials) alanları API üzerinden dinamik hale getirilmiş ve `ViewComponent` mimarisi ile entegre edilmiştir.
+* **Dinamik UI Bileşenleri:** Ana sayfa üzerindeki Slider, Menü, Günün İndirimleri ve Müşteri Yorumları (Testimonials) alanları API üzerinden dinamik hale getirilmiş ve `ViewComponent` mimarisi ile entegre edilmiştir.
 
-* **Mimari Kurulum:**  
-  Proje, profesyonel standartlara uygun olarak **6 katmanlı (N-Tier)** yapıda kurgulanmıştır.
+* **Mimari Kurulum:** Proje, profesyonel standartlara uygun olarak **6 katmanlı (N-Tier)** yapıda kurgulanmıştır.
 
-* **Veritabanı Tasarımı:**  
-  EF Core kullanılarak ilişkisel bir yapı oluşturulmuş; Products ve Categories arasında bire-çok ilişki sağlanmıştır.
+* **Veritabanı Tasarımı:** EF Core kullanılarak ilişkisel bir yapı oluşturulmuş; Products ve Categories arasında bire-çok ilişki sağlanmıştır.
 
-* **SignalR & Real-Time Dashboard:**  
-  * Dashboard üzerindeki tüm veriler (Anlık Kasa, Sipariş Sayısı, Ortalama Fiyatlar vb.) sayfa yenilenmeden anlık olarak güncellenmektedir.  
+* **SignalR & Real-Time Dashboard:** * Dashboard üzerindeki tüm veriler (Anlık Kasa, Sipariş Sayısı, Ortalama Fiyatlar vb.) sayfa yenilenmeden anlık olarak güncellenmektedir.  
   * **Progress Bar Entegrasyonu:** Restoran doluluk oranları, aktif siparişler ve kapasite verileri anlık olarak dolan ilerleme çubukları ile görselleştirilmiştir.  
   * İstatistikler için optimize edilmiş kompleks **LINQ** sorguları geliştirilmiştir.
 
-* **Finansal Mantık & Kasa Yönetimi:**  
-  * **Automated Cash Tracking:** SQL Trigger kullanılarak, sipariş tamamlandığında kasa (`MoneyCase`) toplamının otomatik güncellenmesi sağlanmıştır.  
+* **SignalR ile Anlık Masa Durum Takibi:**
+  * **Real-Time Masa İzleme:** Restoran içerisindeki masaların doluluk durumları (Dolu/Boş) SignalR Hub üzerinden anlık olarak takip edilmektedir.
+  * **Modern Premium UI:** Masalar için gradyan renk geçişli, hover animasyonlu ve ikon bazlı modern bir dashboard arayüzü kurgulanmıştır.
+  * **Canlı Bağlantı Göstergesi:** Sistemin API ile olan canlı bağlantısını doğrulayan, animasyonlu "Sistem Aktif" durum paneli entegre edilmiştir.
+
+* **Finansal Mantık & Kasa Yönetimi:** * **Automated Cash Tracking:** SQL Trigger kullanılarak, sipariş tamamlandığında kasa (`MoneyCase`) toplamının otomatik güncellenmesi sağlanmıştır.  
   * **Precise Date Reporting:** Günlük ciro (TodayCash) hesaplamalarında SQL ve .NET tarafındaki tarih uyumsuzlukları Data Annotation ve özel filtrelerle giderilmiştir.
 
-* **Admin Paneli & UI:**  
-  `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron iletişim kurulmuş, modern bir admin teması entegre edilerek kullanıcı deneyimi artırılmıştır.
+* **Admin Paneli & UI:** `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron iletişim kurulmuş, modern bir admin teması entegre edilerek kullanıcı deneyimi artırılmıştır.
 
-* **CRUD Operasyonları:**  
-  Menü yönetimi, rezervasyon sistemi, iletişim bilgileri ve sosyal medya modülleri tam entegre şekilde çalışmaktadır.
+* **CRUD Operasyonleri:** Menü yönetimi, rezervasyon sistemi, iletişim bilgileri ve sosyal medya modülleri tam entegre şekilde çalışmaktadır.
 
-* **Asenkron İşlemler (AJAX):**  
-  Menü ve ürün yönetim süreçlerinde sayfa yenilenmesini engellemek ve performansı artırmak amacıyla AJAX metotları entegre edilmiştir.
+* **Asenkron İşlemler (AJAX):** Menü ve ürün yönetim süreçlerinde sayfa yenilenmesini engellemek ve performansı artırmak amacıyla AJAX metotları entegre edilmiştir.
 
-* **Dinamik Kategori & Ürün Yönetimi:**  
-  Menü öğeleri, API üzerinden gelen verilerle dinamik olarak listelenmekte ve kullanıcı etkileşimleri (ID takibi vb.) anlık olarak yönetilmektedir.
+* **Dinamik Kategori & Ürün Yönetimi:** Menü öğeleri, API üzerinden gelen verilerle dinamik olarak listelenmekte ve kullanıcı etkileşimleri (ID takibi vb.) anlık olarak yönetilmektedir.
 
-* **Sepet Yönetimi ve Finansal Hesaplamalar:**  
-  * AJAX ve SweetAlert2 entegrasyonu ile sayfa yenilenmeden dinamik ürün ekleme altyapısı kurulmuştur.  
+* **Sepet Yönetimi ve Finansal Hesaplamalar:** * AJAX ve SweetAlert2 entegrasyonu ile sayfa yenilenmeden dinamik ürün ekleme altyapısı kurulmuştur.  
   * Business katmanı üzerinden ürün bazlı %10 KDV ve genel toplam tutar hesaplama mantığı geliştirilmiştir.  
   * API üzerinden masaya özel sepet listeleme ve ürün silme fonksiyonları asenkron olarak entegre edilmiştir.
 
-* **SignalR ile Anlık Rezervasyon Yönetimi:**  
-  * Rezervasyon süreçleri SignalR Hub yapısına entegre edilerek, verilerin admin paneline anlık (real-time) düşmesi sağlanmıştır.  
+* **SignalR ile Anlık Rezervasyon Yönetimi:** * Rezervasyon süreçleri SignalR Hub yapısına entegre edilerek, verilerin admin paneline anlık (real-time) düşmesi sağlanmıştır.  
   * Hub üzerinden gelen rezervasyon listesi, UI tarafında dinamik HTML tabloları üzerinde anlık olarak güncellenecek şekilde kurgulanmıştır.
 
 * **Bildirim Sistemi & Kullanıcı Deneyimi (UX):**
