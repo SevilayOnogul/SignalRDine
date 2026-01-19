@@ -1,6 +1,11 @@
+using SignalRDine.DataAccessLayer.Concrete;
+using SignalRDine.EntityLayer.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpClient();
+builder.Services.AddDbContext<SignalRDineContext>();
+builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<SignalRDineContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

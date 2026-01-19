@@ -1,0 +1,59 @@
+﻿@model LoginDto
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SignalR Restoran Giriş Sayfası</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/colorlib-regform-32/css/nunito-font.css">
+    <link rel="stylesheet" href="~/colorlib-regform-32/css/style.css" />
+    <style>
+        /* Resmin tam sığması ve bozulmaması için ekleme */
+        .form-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Resmi kırpma yapmadan alanı dolduracak şekilde ayarlar */
+            display: block;
+        }
+        /* Giriş Yap butonunu siyah/koyu yapmak için */
+        .form-detail .register {
+            background: #222 !important; /* Koyu gri/siyah tonu */
+            color: #fff;
+            cursor: pointer;
+        }
+
+            .form-detail .register:hover {
+                background: #000 !important; /* Üzerine gelince tam siyah */
+            }
+    </style>
+</head>
+<body class="form-v6">
+    <div class="page-content">
+        <div class="form-v6-content">
+            <div class="form-left">
+                <img src="~/colorlib-regform-32/images/Sauce1.jpg" alt="form">
+            </div>
+            <form class="form-detail" method="post">
+                <h2>Giriş Formu</h2>
+                <div class="form-row">
+                    <input type="text" class="input-text" placeholder="Kullanıcı Adınız" asp-for="Username" required>
+                </div>
+             
+                <div class="form-row">
+                    <input type="password" class="input-text" placeholder="Şifreniz" asp-for="Password" required>
+                </div>
+
+                <div class="form-row-last">
+                    <input type="submit" class="register" value="Giriş Yap">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

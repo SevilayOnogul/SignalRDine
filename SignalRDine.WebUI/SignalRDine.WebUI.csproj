@@ -11,7 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SignalRDine.BusinessLayer\SignalRDine.BusinessLayer.csproj" />
+    <ProjectReference Include="..\SignalRDine.EntityLayer\SignalRDine.EntityLayer.csproj" />
   </ItemGroup>
 
 </Project>
