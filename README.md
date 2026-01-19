@@ -45,6 +45,12 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
   * Rezervasyon süreçleri SignalR Hub yapısına entegre edilerek, verilerin admin paneline anlık (real-time) düşmesi sağlanmıştır.  
   * Hub üzerinden gelen rezervasyon listesi, UI tarafında dinamik HTML tabloları üzerinde anlık olarak güncellenecek şekilde kurgulanmıştır.
 
+* **Bildirim Sistemi & Kullanıcı Deneyimi (UX):**
+  * **Anlık Bildirimler:** SignalR Hub üzerinden okunmamış bildirim sayıları ve listesi anlık olarak tüm admin paneline dağıtılmaktadır.
+  * **Multimedya Uyarıları:** Yeni bir bildirim geldiğinde tetiklenen `.mp3` formatlı sesli uyarı sistemi entegre edilmiştir.
+  * **Görsel Bildirim (SweetAlert2):** Kullanıcı deneyimini artırmak amacıyla yeni bildirimlerde sağ üst köşede otomatik kapanan "Toast" mesajları kurgulanmıştır.
+  * **AutoMapper Entegrasyonu:** Notification DTO'ları ve Entity nesneleri arasındaki dönüşümler asenkron ve güvenli şekilde yönetilmektedir.
+
 ## 🏗️ Katman Yapısı
 
 1. **SignalRDine.Api:** API uç noktaları ve SignalR Hub tanımlarının bulunduğu katman  
@@ -63,6 +69,7 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 * **MS SQL Server** & **T-SQL Triggers**
 * **ASP.NET Core MVC** (Razor View Engine)
 * **Swagger / OpenAPI** (API Documentation)
+* **SweetAlert2** (Modern UI Notifications)
 * **LineAwesome & FontAwesome** (UI Icons)
 
 ## ⚙️ Kurulum
