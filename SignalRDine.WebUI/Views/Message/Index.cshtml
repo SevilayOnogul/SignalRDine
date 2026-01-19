@@ -1,0 +1,70 @@
+﻿@model List<ResultProductDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+@await Component.InvokeAsync("_UILayoutHeadComponentPartial")
+
+<body class="sub_page">
+
+    @await Component.InvokeAsync("_MenuNavbarComponentPartial")
+
+    <section class="food_section layout_padding">
+        <div class="container">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="text-center mb-4">SignalR Restoran Anlık Mesajlaşma</h3>
+                    </div>
+                </div>
+
+                <div class="row p-1 align-items-center">
+                    <div class="col-md-2 font-weight-bold">Kullanıcı Adınız:</div>
+                    <div class="col-md-5">
+                        <input type="text" id="userinput" class="form-control" placeholder="Adınızı giriniz..." />
+                    </div>
+                </div>
+
+                <div class="row p-1 align-items-center">
+                    <div class="col-md-2 font-weight-bold">Mesajınız:</div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" id="messageinput" placeholder="Mesajınızı yazınız..." />
+                    </div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-5">
+                        <input type="button" id="sendbutton" value="Mesaj Gönder" class="btn btn-warning btn-block" />
+                    </div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col-12">
+                        <hr />
+                    </div>
+                </div>
+
+                <div class="row p-1">
+                    <div class="col-md-7">
+                        <ul id="messagelist" class="list-group shadow-sm"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    @await Component.InvokeAsync("_UILayoutFooterComponentPartial")
+    @await Component.InvokeAsync("_UILayoutScriptComponentPartial")
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.8/signalr.min.js"></script>
+    <script src="~/js/chat.js"></script>
+    
+</body>
+</html>
