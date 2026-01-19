@@ -1,0 +1,157 @@
+﻿@model List<ResultMenuTableDto>
+@{
+    ViewData["Title"] = "TableListByStatus";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<style>
+    /* Kartların Genel Tasarımı */
+    .table-card {
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border-radius: 20px !important;
+        border: none;
+        overflow: hidden;
+    }
+
+        .table-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+
+    /* Bağlantı Durumu Göstergesi (Blink Efekti) */
+    #connstatus {
+        background-color: #28a745;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 11px;
+        font-weight: bold;
+        text-transform: uppercase;
+        animation: blink 2s infinite;
+        box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+    }
+
+    @@keyframes blink {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.4;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    /* Dolu/Boş Gradyan Renkleri */
+    .bg-gradient-success {
+        background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+    }
+
+    .bg-gradient-danger {
+        background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%) !important;
+    }
+
+    /* Rozet Tasarımı */
+    .status-pill {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(4px);
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-weight: 800;
+        font-size: 0.75rem;
+        display: inline-block;
+    }
+
+    /* İkon Kutusu */
+    .table-icon-wrapper {
+        background: rgba(255, 255, 255, 0.2);
+        width: 65px;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    #statuslist {
+        padding-top: 30px;
+    }
+</style>
+
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="page-title" style="font-weight: 800; color: #2c3e50; margin-bottom: 0;">
+                <i class="la la-th-large mr-2"></i>Restaurant Masa Paneli
+            </h4>
+            <span id="connstatus">Bağlanıyor...</span>
+        </div>
+
+        <div id="statuslist">
+            <div class="d-flex justify-content-center py-5">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="sr-only">Yükleniyor...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(() => {
+        var connection = new signalR.HubConnectionBuilder()
+            .withUrl("https://localhost:7263/SignalRHub")
+            .build();
+
+        connection.start().then(() => {
+            $("#connstatus").text("Sistem Aktif");
+            setInterval(() => {
+                connection.invoke("GetMenuTableStatus");
+            }, 1000);
+        }).catch((err) => {
+            console.log(err);
+            $("#connstatus").text("Bağlantı Hatası").css("background-color", "#dc3545");
+        });
+
+        connection.on("ReceiveMenuTableStatus", (value) => {
+            let tablehtml = `<div class="row">`;
+
+            $.each(value, (index, item) => {
+                const isFull = item.status === true || item.Status === true;
+                const gradClass = isFull ? "bg-gradient-success" : "bg-gradient-danger";
+                const statusText = isFull ? "DOLU" : "BOŞ";
+                const iconClass = isFull ? "la la-utensils" : "la la-chair";
+                const tableName = item.name || item.Name;
+
+                tablehtml += `
+                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                            <div class="card table-card ${gradClass} text-white shadow">
+                                <div class="card-body p-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="table-icon-wrapper">
+                                            <i class="${iconClass}" style="font-size: 2.5rem;"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h5 class="mb-1" style="font-weight: 800; letter-spacing: 0.5px;">${tableName}</h5>
+                                            <div class="status-pill">${statusText}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+            });
+
+            tablehtml += "</div>";
+            $("#statuslist").html(tablehtml);
+        });
+    });
+</script>

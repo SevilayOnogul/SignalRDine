@@ -80,7 +80,6 @@ namespace SignalRDine.Api.Hubs
             await Clients.All.SendAsync("ReceiveMenuTableCount", value16);
 
         }
-
         public async Task SendProgress()
         {
 
@@ -93,15 +92,12 @@ namespace SignalRDine.Api.Hubs
             var value3 = _menuTableService.TMenuTableCount();
             await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
 		}
-
-
         public async Task GetBookingList()
         {
             var values = _bookingService.TGetListAll();
             await Clients.All.SendAsync("ReceiveBookingList", values);
 
         }
-
         public async Task SendNotification()
         {
             var values=_notificationService.TNotificationCountByStatusFalse();
@@ -112,6 +108,11 @@ namespace SignalRDine.Api.Hubs
 
 
 
+        }
+        public async Task GetMenuTableStatus()
+        {
+            var value = _menuTableService.TGetListAll();
+            await Clients.All.SendAsync("ReceiveMenuTableStatus",value);
         }
     }
 }
