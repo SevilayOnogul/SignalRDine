@@ -6,6 +6,11 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 
 ## 🛠️ Yapılan Geliştirmeler
 
+* **Identity & Kimlik Doğrulama (Yeni):**
+    * **Özelleştirilmiş Identity:** `AppUser` ve `AppRole` sınıfları `int` anahtar tipiyle özelleştirilerek sisteme dahil edildi.
+    * **Güvenli Kayıt & Giriş:** `RegisterDto` ve `LoginDto` yapısı kullanılarak katmanlar arası veri güvenliği sağlandı.
+    * **Modern Kimlik Arayüzleri:** Kullanıcı deneyimine uygun, asenkron çalışan kayıt ve giriş sayfaları (UI) tasarlandı.
+
 * **Dinamik UI Bileşenleri:** Ana sayfa üzerindeki Slider, Menü, Günün İndirimleri ve Müşteri Yorumları (Testimonials) alanları API üzerinden dinamik hale getirilmiş ve `ViewComponent` mimarisi ile entegre edilmiştir.
 
 * **Mimari Kurulum:** Proje, profesyonel standartlara uygun olarak **6 katmanlı (N-Tier)** yapıda kurgulanmıştır.
@@ -13,22 +18,22 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 * **Veritabanı Tasarımı:** EF Core kullanılarak ilişkisel bir yapı oluşturulmuş; Products ve Categories arasında bire-çok ilişki sağlanmıştır.
 
 * **SignalR & Real-Time Dashboard:** * Dashboard üzerindeki tüm veriler (Anlık Kasa, Sipariş Sayısı, Ortalama Fiyatlar vb.) sayfa yenilenmeden anlık olarak güncellenmektedir.  
-  * **Progress Bar Entegrasyonu:** Restoran doluluk oranları, aktif siparişler ve kapasite verileri anlık olarak dolan ilerleme çubukları ile görselleştirilmiştir.  
-  * İstatistikler için optimize edilmiş kompleks **LINQ** sorguları geliştirilmiştir.
-  * **Anlık Bağlantı Takibi (Client Counter):** Sisteme o an bağlı olan aktif kullanıcı sayısı, `OnConnectedAsync` ve `OnDisconnectedAsync` metodları üzerinden takip edilerek tüm panellerde anlık olarak güncellenmektedir.
+    * **Progress Bar Entegrasyonu:** Restoran doluluk oranları, aktif siparişler ve kapasite verileri anlık olarak dolan ilerleme çubukları ile görselleştirilmiştir.  
+    * İstatistikler için optimize edilmiş kompleks **LINQ** sorguları geliştirilmiştir.
+    * **Anlık Bağlantı Takibi (Client Counter):** Sisteme o an bağlı olan aktif kullanıcı sayısı, `OnConnectedAsync` ve `OnDisconnectedAsync` metodları üzerinden takip edilerek tüm panellerde anlık olarak güncellenmektedir.
 
 * **SignalR ile Anlık Masa Durum Takibi:**
-  * **Real-Time Masa İzleme:** Restoran içerisindeki masaların doluluk durumları (Dolu/Boş) SignalR Hub üzerinden anlık olarak takip edilmektedir.
-  * **Modern Premium UI:** Masalar için gradyan renk geçişli, hover animasyonlu ve ikon bazlı modern bir dashboard arayüzü kurgulanmıştır.
-  * **Canlı Bağlantı Göstergesi:** Sistemin API ile olan canlı bağlantısını doğrulayan, animasyonlu "Sistem Aktif" durum paneli entegre edilmiştir.
+    * **Real-Time Masa İzleme:** Restoran içerisindeki masaların doluluk durumları (Dolu/Boş) SignalR Hub üzerinden anlık olarak takip edilmektedir.
+    * **Modern Premium UI:** Masalar için gradyan renk geçişli, hover animasyonlu ve ikon bazlı modern bir dashboard arayüzü kurgulanmıştır.
+    * **Canlı Bağlantı Göstergesi:** Sistemin API ile olan canlı bağlantısını doğrulayan, animasyonlu "Sistem Aktif" durum paneli entegre edilmiştir.
 
 * **SignalR ile Anlık Mesajlaşma (Chat) Modülü:**
-  * **Real-Time Chat:** Restoran içi kullanıcılar/personeller arasında anlık mesaj iletimi sağlayan Hub altyapısı kurulmuştur.
-  * **Zaman Damgalı İletişim:** Mesajların gönderen bilgisi ve profesyonel saat formatı (HH:mm) ile anlık listelenmesi sağlanmıştır.
-  * **UX Kontrolleri:** Sunucu bağlantısı kurulana kadar buton pasifize edilmesi ve mesaj sonrası input temizleme gibi kullanıcı deneyimi detayları eklenmiştir.
+    * **Real-Time Chat:** Restoran içi kullanıcılar/personeller arasında anlık mesaj iletimi sağlayan Hub altyapısı kurulmuştur.
+    * **Zaman Damgalı İletişim:** Mesajların gönderen bilgisi ve profesyonel saat formatı (HH:mm) ile anlık listelenmesi sağlanmıştır.
+    * **UX Kontrolleri:** Sunucu bağlantısı kurulana kadar buton pasifize edilmesi ve mesaj sonrası input temizleme gibi kullanıcı deneyimi detayları eklenmiştir.
 
 * **Finansal Mantık & Kasa Yönetimi:** * **Automated Cash Tracking:** SQL Trigger kullanılarak, sipariş tamamlandığında kasa (`MoneyCase`) toplamının otomatik güncellenmesi sağlanmıştır.  
-  * **Precise Date Reporting:** Günlük ciro (TodayCash) hesaplamalarında SQL ve .NET tarafındaki tarih uyumsuzlukları Data Annotation ve özel filtrelerle giderilmiştir.
+    * **Precise Date Reporting:** Günlük ciro (TodayCash) hesaplamalarında SQL ve .NET tarafındaki tarih uyumsuzlukları Data Annotation ve özel filtrelerle giderilmiştir.
 
 * **Admin Paneli & UI:** `IHttpClientFactory` kullanılarak API uç noktalarıyla asenkron iletişim kurulmuş, modern bir admin teması entegre edilerek kullanıcı deneyimi artırılmıştır.
 
@@ -39,17 +44,17 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 * **Dinamik Kategori & Ürün Yönetimi:** Menü öğeleri, API üzerinden gelen verilerle dinamik olarak listelenmekte ve kullanıcı etkileşimleri (ID takibi vb.) anlık olarak yönetilmektedir.
 
 * **Sepet Yönetimi ve Finansal Hesaplamalar:** * AJAX ve SweetAlert2 entegrasyonu ile sayfa yenilenmeden dinamik ürün ekleme altyapısı kurulmuştur.  
-  * Business katmanı üzerinden ürün bazlı %10 KDV ve genel toplam tutar hesaplama mantığı geliştirilmiştir.  
-  * API üzerinden masaya özel sepet listeleme ve ürün silme fonksiyonları asenkron olarak entegre edilmiştir.
+    * Business katmanı üzerinden ürün bazlı %10 KDV ve genel toplam tutar hesaplama mantığı geliştirilmiştir.  
+    * API üzerinden masaya özel sepet listeleme ve ürün silme fonksiyonları asenkron olarak entegre edilmiştir.
 
 * **SignalR ile Anlık Rezervasyon Yönetimi:** * Rezervasyon süreçleri SignalR Hub yapısına entegre edilerek, verilerin admin paneline anlık (real-time) düşmesi sağlanmıştır.  
-  * Hub üzerinden gelen rezervasyon listesi, UI tarafında dinamik HTML tabloları üzerinde anlık olarak güncellenecek şekilde kurgulanmıştır.
+    * Hub üzerinden gelen rezervasyon listesi, UI tarafında dinamik HTML tabloları üzerinde anlık olarak güncellenecek şekilde kurgulanmıştır.
 
 * **Bildirim Sistemi & Kullanıcı Deneyimi (UX):**
-  * **Anlık Bildirimler:** SignalR Hub üzerinden okunmamış bildirim sayıları ve listesi anlık olarak tüm admin paneline dağıtılmaktadır.
-  * **Multimedya Uyarıları:** Yeni bir bildirim geldiğinde tetiklenen `.mp3` formatlı sesli uyarı sistemi entegre edilmiştir.
-  * **Görsel Bildirim (SweetAlert2):** Kullanıcı deneyimini artırmak amacıyla yeni bildirimlerde sağ üst köşede otomatik kapanan "Toast" mesajları kurgulanmıştır.
-  * **AutoMapper Entegrasyonu:** Notification DTO'ları ve Entity nesneleri arasındaki dönüşümler asenkron ve güvenli şekilde yönetilmektedir.
+    * **Anlık Bildirimler:** SignalR Hub üzerinden okunmamış bildirim sayıları ve listesi anlık olarak tüm admin paneline dağıtılmaktadır.
+    * **Multimedya Uyarıları:** Yeni bir bildirim geldiğinde tetiklenen `.mp3` formatlı sesli uyarı sistemi entegre edilmiştir.
+    * **Görsel Bildirim (SweetAlert2):** Kullanıcı deneyimini artırmak amacıyla yeni bildirimlerde sağ üst köşede otomatik kapanan "Toast" mesajları kurgulanmıştır.
+    * **AutoMapper Entegrasyonu:** Notification DTO'ları ve Entity nesneleri arasındaki dönüşümler asenkron ve güvenli şekilde yönetilmektedir.
 
 ## 🏗️ Katman Yapısı
 
@@ -63,6 +68,7 @@ Bu proje, modern .NET teknolojileri kullanılarak geliştirilmiş, anlık veri i
 ## 🚀 Kullanılan Teknolojiler
 
 * **.NET 8**
+* **ASP.NET Core Identity** (Authentication & Authorization)
 * **Entity Framework Core** (Code First & Fluent API)
 * **SignalR** (Real-Time Data Communication)
 * **AutoMapper** (Object-to-Object Mapping)
