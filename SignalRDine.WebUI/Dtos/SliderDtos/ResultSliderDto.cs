@@ -1,4 +1,10 @@
-﻿namespace SignalRDine.WebUI.Dtos.SliderDtos
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SignalRDine.WebUI.Dtos.SliderDtos
 {
     public class ResultSliderDto
     {

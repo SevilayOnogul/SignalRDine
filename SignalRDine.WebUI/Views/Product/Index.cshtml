@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
 
 <div class="content">
@@ -16,40 +17,55 @@
                     </div>
                     <div class="card-body">
                         <div class="card-sub">
-                            Ürün ile ilgili işlemleri aşağıdan gerçekleştirebilirsiniz.
+                            Ürün listesini yönetebilir, yeni ürün ekleyebilir veya güncelleyebilirsiniz.
                         </div>
-                        <table class="table mt-3">
+                        <table class="table table-hover mt-3">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Ürün Adı</th>
-                                    <th scope="col">Fiyatı</th>
+                                    <th scope="col">Fiyat</th>
                                     <th scope="col">Kategori</th>
                                     <th scope="col">Durum</th>
-                                    <th scope="col">Sil</th>
-                                    <th scope="col">Güncelle</th>
+                                    <th scope="col" class="text-center">İşlemler</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    count++;
                                     <tr>
-                                        <td>@item.ProductID</td>
+                                        <td><b>@count</b></td>
                                         <td>@item.ProductName</td>
-                                        <td>@item.Price</td>
-                                        <td>@item.CategoryName</td>
-                                        <td>@item.ProductStatus</td>
-                                        <td><a href="/Product/DeleteProduct/@item.ProductID" class="btn btn-outline-danger btn-rounded">Sil</a></td>
-                                        <td><a href="/Product/UpdateProduct/@item.ProductID" class="btn btn-outline-success">Güncelle</a></td>
+                                        <td>@item.Price.ToString("C2")</td> @* Para birimi formatı *@
+                                        <td><span class="badge badge-count">@item.CategoryName</span></td>
+                                        <td>
+                                            @if (item.ProductStatus)
+                                            {
+                                                <span class="badge badge-success">Aktif</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Pasif</span>
+                                            }
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="/Product/DeleteProduct/@item.ProductID" class="btn btn-outline-danger btn-sm btn-round">
+                                                <i class="la la-trash"></i> Sil
+                                            </a>
+                                            <a href="/Product/UpdateProduct/@item.ProductID" class="btn btn-outline-success btn-sm btn-round">
+                                                <i class="la la-edit"></i> Güncelle
+                                            </a>
+                                        </td>
                                     </tr>
-
                                 }
                             </tbody>
                         </table>
-                        <a href="/Product/CreateProduct/" class="btn btn-outline-primary">Yeni Kategori Girişi</a>
+                        <a href="/Product/CreateProduct/" class="btn btn-primary btn-round mt-3">
+                            <i class="la la-plus"></i> Yeni Ürün Ekle
+                        </a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

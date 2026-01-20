@@ -8,5 +8,7 @@ namespace SignalRDine.WebUI.Controllers
 		{
 			return View();
 		}
+
+
 	}
 }

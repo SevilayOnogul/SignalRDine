@@ -41,6 +41,12 @@
                                 <label for="description">Ürün Açıklamasını Giriniz</label>
                                 <input type="text" class="form-control" asp-for="Description" id="description">
                             </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" asp-for="ProductStatus">
+                                    <span class="form-check-sign">Ürün Satışta mı / Aktif mi?</span>
+                                </label>
+                            </div>
                         </div>
 
                         <div class="card-action">

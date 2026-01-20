@@ -23,8 +23,8 @@ namespace SignalRDine.Api.Controllers
         [HttpGet]
         public IActionResult TestimonialList()
         {
-            var values = _mapper.Map<List<ResultTestimonialDto>>(_testimonialService.TGetListAll());
-            return Ok(values);
+            var values = _testimonialService.TGetListAll();
+            return Ok(_mapper.Map<List<ResultTestimonialDto>>(values));
         }
 
         [HttpPost]
@@ -57,5 +57,31 @@ namespace SignalRDine.Api.Controllers
             _testimonialService.TUpdate(value);
             return Ok("Müşteri Yorumu Başarıyla Güncellendi");
         }
+        [HttpGet("GetActiveTestimonials")]
+        public IActionResult GetActiveTestimonials()
+        {
+            var values = _testimonialService.TGetListAll().Where(x => x.Status == true).ToList();
+            return Ok(_mapper.Map<List<ResultTestimonialDto>>(values));
+        }
+
+        [HttpGet("ChangeStatusTrue/{id}")]
+        public IActionResult ChangeStatusTrue(int id)
+        {
+            var value = _testimonialService.TGetByID(id);
+            value.Status = true;
+            _testimonialService.TUpdate(value);
+            return Ok("Referans Durumu Aktif Yapıldı");
+        }
+        [HttpGet("ChangeStatusFalse/{id}")]
+        public IActionResult ChangeStatusFalse(int id)
+
+        {
+            var value = _testimonialService.TGetByID(id);
+            value.Status = false;
+            _testimonialService.TUpdate(value);
+            return Ok("Referans Durumu Pasif Yapıldı");
+        }
+
+
     }
 }

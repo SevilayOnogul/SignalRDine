@@ -88,5 +88,19 @@ namespace SignalRDine.WebUI.Controllers
             return View();
 
         }
+
+        public async Task<IActionResult> ChangeStatusTrue(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.GetAsync($"https://localhost:7263/api/Testimonial/ChangeStatusTrue/{id}");
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> ChangeStatusFalse(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            await client.GetAsync($"https://localhost:7263/api/Testimonial/ChangeStatusFalse/{id}");
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -31,27 +31,16 @@ namespace SignalRDine.Api.Controllers
         public IActionResult CreateContact(CreateContactDto createContactDto)
         {
         
-            _contactService.TAdd(new Contact()
-            {
-                FooterDescription = createContactDto.FooterDescription,
-                Location = createContactDto.Location,
-                Phone = createContactDto.Phone,
-                Mail = createContactDto.Mail,
-            });
+           var value=_mapper.Map<Contact>(createContactDto);
+            _contactService.TAdd(value);
             return Ok("İletişim Bilgisi Eklendi");
         }
 
         [HttpPut]
         public IActionResult UpdateContact(UpdateContactDto updateContactDto)
         {
-            _contactService.TUpdate(new Contact()
-            {
-                ContactID = updateContactDto.ContactID,
-                FooterDescription = updateContactDto.FooterDescription,
-                Location = updateContactDto.Location,
-                Mail = updateContactDto.Mail,
-                Phone = updateContactDto.Phone,
-            });
+           var value=_mapper.Map<Contact>(updateContactDto);
+            _contactService.TUpdate(value);
             return Ok("İletişim Bilgisi Güncellendi");
         }
 

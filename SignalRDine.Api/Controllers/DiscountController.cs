@@ -31,6 +31,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult CreateDiscount(CreateDiscountDto createDiscountDto)
         {
             var value=_mapper.Map<Discount>(createDiscountDto);
+            value.Status = false;
             _discountService.TAdd(value);
             return Ok("İndirim Bilgisi Eklendi");
         }
@@ -54,8 +55,33 @@ namespace SignalRDine.Api.Controllers
         public IActionResult UpdateDiscount(UpdateDiscountDto updateDiscountDto)
         {
             var value = _mapper.Map<Discount>(updateDiscountDto);
+            value.Status=false;
             _discountService.TUpdate(value);
             return Ok("İndirim Bilgisi Güncellendi");
         }
+
+        [HttpGet("ChangeStatusToTrue/{id}")]
+        public IActionResult ChangeStatusToTrue(int id)
+        {
+            _discountService.TChangeStatusToTrue(id);
+            return Ok("Ürün İndirimi Aktif Hale Getirildi");
+
+        }
+
+        [HttpGet("ChangeStatusToFalse/{id}")]
+        public IActionResult ChangeStatusToFalse(int id)
+        {
+            _discountService.TChangeStatusToFalse(id);
+            return Ok("Ürün İndirimi Pasif Hale Getirildi");
+        }
+
+        [HttpGet("GetListByStatusTrue")]
+        public IActionResult GetListByStatusTrue()
+        {
+            var values=_discountService.TGetListByStatusTrue();
+            return Ok(values);
+
+        }
+
     }
 }

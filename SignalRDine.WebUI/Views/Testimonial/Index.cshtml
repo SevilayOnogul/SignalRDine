@@ -7,7 +7,7 @@
 
 <div class="content">
     <div class="container-fluid">
-        <h4 class="page-title">Kategori İşlemleri</h4>
+        <h4 class="page-title">Referans İşlemleri</h4>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
                         <div class="card-sub">
-                            Müşterilerin yaptığı yorumlar ile ilgili işlemleri aşağıdan gerçekleştirebilirsiniz.
+                            Müşterilerin yaptığı yorumları buradan yönetebilir, hangilerinin ana sayfada görüneceğini belirleyebilirsiniz.
                         </div>
                         <table class="table mt-3">
                             <thead>
@@ -26,17 +26,38 @@
                                     <th scope="col">Durum</th>
                                     <th scope="col">Sil</th>
                                     <th scope="col">Güncelle</th>
+                                    <th scope="col">Yayına Al/Gizle</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    count++;
                                     <tr>
-                                        <td>@item.TestimonialID</td>
+                                        <th>@count</th>
                                         <td>@item.Name</td>
-                                        <td>@item.Status</td>
-                                        <td><a href="/Testimonial/DeleteTestimonial/@item.TestimonialID" class="btn btn-outline-danger">Sil</a></td>
-                                        <td><a href="/Testimonial/UpdateTestimonial/@item.TestimonialID" class="btn btn-outline-success">Güncelle</a></td>
+                                        <td>
+                                            @if (item.Status)
+                                            {
+                                                <span class="badge badge-success">Yayında</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Gizli</span>
+                                            }
+                                        </td>
+                                        <td><a href="/Testimonial/DeleteTestimonial/@item.TestimonialID" class="btn btn-outline-danger btn-sm">Sil</a></td>
+                                        <td><a href="/Testimonial/UpdateTestimonial/@item.TestimonialID" class="btn btn-outline-success btn-sm">Güncelle</a></td>
+                                        <td>
+                                            @if (item.Status)
+                                            {
+                                                <a href="/Testimonial/ChangeStatusFalse/@item.TestimonialID" class="btn btn-outline-warning btn-sm">Gizle</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/Testimonial/ChangeStatusTrue/@item.TestimonialID" class="btn btn-outline-primary btn-sm">Yayına Al</a>
+                                            }
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -44,9 +65,7 @@
                         <a href="/Testimonial/CreateTestimonial/" class="btn btn-outline-primary">Yeni Müşteri Yorumu Girişi</a>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-

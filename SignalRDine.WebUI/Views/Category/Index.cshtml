@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminLayout/Index.cshtml";
+    int count = 0;
 }
 
 
@@ -31,18 +32,36 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
+                                    count++;
                                     <tr>
-                                        <td>@item.CategoryID</td>
+                                        <th>@count</th>
                                         <td>@item.CategoryName</td>
-                                        <td>@item.CategoryStatus</td>
-                                        <td><a href="/Category/DeleteCategory/@item.CategoryID" class="btn btn-outline-danger">Sil</a></td>
-                                        <td><a href="/Category/UpdateCategory/@item.CategoryID" class="btn btn-outline-success">Güncelle</a></td>
+                                        <td>
+                                            @if (item.CategoryStatus == true)
+                                            {
+                                                <span class="badge badge-success">Aktif</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge badge-danger">Pasif</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <a href="/Category/DeleteCategory/@item.CategoryID" class="btn btn-outline-danger btn-sm btn-round">
+                                                <i class="la la-trash"></i> Sil
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/Category/UpdateCategory/@item.CategoryID" class="btn btn-outline-success btn-sm btn-round">
+                                                <i class="la la-edit"></i> Güncelle
+                                            </a>
+                                        </td>
                                     </tr>
 
                                 }
                             </tbody>
                         </table>
-                        <a href="/Category/CreateCategory/" class="btn btn-outline-primary">Yeni Kategori Girişi</a>
+                        <a href="/Category/CreateCategory/" class="btn btn-primary btn-round mt-3" ><i class="la la-plus"></i> Yeni Kategori Girişi</a>
                     </div>
                 </div>
 

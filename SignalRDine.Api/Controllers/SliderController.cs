@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalRDine.BusinessLayer.Abstract;
+using SignalRDine.DtoLayer.FeatureDto;
+using SignalRDine.DtoLayer.SliderDto;
+using SignalRDine.EntityLayer.Entities;
 
 namespace SignalRDine.Api.Controllers
 {
@@ -9,16 +13,50 @@ namespace SignalRDine.Api.Controllers
     public class SliderController : ControllerBase
     {
         private readonly ISliderService _sliderService;
+        private readonly IMapper _mapper;
 
-        public SliderController(ISliderService sliderService)
+        public SliderController(ISliderService sliderService, IMapper mapper)
         {
             _sliderService = sliderService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult SliderList()
         {
-            return Ok(_sliderService.TGetListAll());
+            var values = _mapper.Map<List<ResultSliderDto>>(_sliderService.TGetListAll());
+            return Ok(values);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSlider(CreateSliderDto createSliderDto)
+        {
+            var value = _mapper.Map<Slider>(createSliderDto);
+            _sliderService.TAdd(value);
+            return Ok("Öne Çıkan Alan Bilgisi Eklendi");
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSlider(int id)
+        {
+            var value = _sliderService.TGetByID(id);
+            _sliderService.TDelete(value);
+            return Ok("Öne Çıkan Alan Bilgisi Silindi");
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetSlider(int id)
+        {
+            var value = _sliderService.TGetByID(id);
+            return Ok(_mapper.Map<GetByIdSliderDto>(value));
+        }
+
+        [HttpPut]
+        public IActionResult UpdateSlider(UpdateSliderDto updateSliderDto)
+        {
+            var value = _mapper.Map<Slider>(updateSliderDto);
+            _sliderService.TUpdate(value);
+            return Ok("Öne Çıkan Alan Bilgisi Güncellendi");
         }
     }
 }
