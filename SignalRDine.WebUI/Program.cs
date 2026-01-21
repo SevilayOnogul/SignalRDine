@@ -27,7 +27,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Login/Index/"; // Süre dolunca buraya yönlendirir
     options.Cookie.HttpOnly = true;      // Güvenlik için XSS engeller
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Test için 60 dk idealdir
+    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Test için 60 dk idealdir
+    options.ExpireTimeSpan = TimeSpan.FromDays(10); // Test için 60 dk idealdir
 });
 
 // Add services to the container.

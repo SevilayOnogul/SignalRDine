@@ -13,11 +13,19 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.23" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="ZXing.Net.Bindings.Windows.Compatibility" Version="0.16.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SignalRDine.BusinessLayer\SignalRDine.BusinessLayer.csproj" />
     <ProjectReference Include="..\SignalRDine.EntityLayer\SignalRDine.EntityLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="QRCoder">
+      <HintPath>..\..\..\Users\ev.user\Desktop\QRCoder.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
