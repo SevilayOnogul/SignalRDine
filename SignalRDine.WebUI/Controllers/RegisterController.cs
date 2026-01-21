@@ -7,7 +7,7 @@ using SignalRDine.EntityLayer.Entities;
 
 namespace SignalRDine.WebUI.Controllers
 {
-    //[AllowAnonymous] 
+    [AllowAnonymous]
     public class RegisterController : Controller
     {
         private readonly UserManager<AppUser> _userManager;

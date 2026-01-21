@@ -6,6 +6,7 @@
     decimal basketTotalPrice = Model.Sum(x => x.Price * x.Count);
     decimal tax = basketTotalPrice / 100 * 10;
     decimal basketTotalPriceWithTax = basketTotalPrice + tax;
+    decimal totalPriceWithCount = 0;
 }
 
 <!DOCTYPE html>
@@ -44,16 +45,26 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach (var item in Model)
+                        @foreach (var group in Model.GroupBy(x=>x.ProductName))
                         {
+                            var item = group.First();
+                            var itemCount = group.Count();
+
+                            basketTotalPrice = Model.Sum(x => x.Price);
+                            tax = basketTotalPrice / 100 * 10;
+                            basketTotalPriceWithTax = basketTotalPrice + tax;
                             count++;
-                            decimal itemTotalPrice = item.Price * item.Count;
+
+                            totalPriceWithCount = item.Price * itemCount;
+
+@*                             decimal itemTotalPrice = item.Price * item.Count;
+ *@
                             <tr class="border-bottom">
                                 <td class="py-3 fw-bold">@count</td>
                                 <td class="text-start ps-4">@item.ProductName</td>
-                                <td><span class="badge bg-secondary-subtle text-dark px-3 py-2">@item.Count</span></td>
+                                <td><span class="badge bg-secondary-subtle text-dark px-3 py-2">@itemCount</span></td>
                                 <td class="text-muted">@item.Price.ToString("0.00") ₺</td>
-                                <td class="fw-bold">@itemTotalPrice.ToString("0.00") ₺</td>
+                                <td class="fw-bold">@totalPriceWithCount.ToString("0.00") ₺</td>
                                 <td>
                                     <a href="/Basket/DeleteBasket/@item.BasketID" class="btn btn-sm btn-outline-danger rounded-circle">
                                         <i class="fa fa-times"></i>
