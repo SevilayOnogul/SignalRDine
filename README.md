@@ -16,7 +16,7 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **Business Layer** → İş kuralları ve servisler  
 - **Web API** → RESTful servisler  
 - **WebUI (MVC)** → Kullanıcı arayüzü  
-- **DTO Katmanı** → Güvenli ve kontrollü veri transferi  
+- **DTO Layer** → Güvenli ve kontrollü veri transferi  
 
 ---
 
@@ -24,7 +24,7 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 
 ### 🔐 Kimlik Doğrulama & Yetkilendirme
 - ASP.NET Core **Identity** ile kullanıcı ve rol yönetimi
-- Global **Authorize Filter** ile sayfa bazlı güvenlik
+- Global **Authorize Filter Policy** ile sayfa bazlı güvenlik
 - Login / AccessDenied yönlendirmeleri
 
 ### ⚙️ Kullanıcı Ayarları & Profil Yönetimi 
@@ -32,13 +32,13 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **Güvenli Güncelleme:** Bilgi değişikliği sırasında şifre ve şifre tekrarı eşleşmesi kontrol edilerek hatalı girişlerin önüne geçildi.
 
 ### ⚡ SignalR – Gerçek Zamanlı İletişim
-- Anlık bildirimler
+- Anlık bildirim altyapısı
 - Masa ve sipariş durumlarının canlı takibi
 - Dashboard üzerinde real-time veri güncellemeleri
 
 ### 🧾 CRUD, Sepet ve Asenkron İşlemler
 - Menü, rezervasyon, iletişim ve içerik yönetimi için CRUD operasyonları
-- **AJAX destekli sepet yönetimi** (sayfa yenilenmeden ekleme/çıkarma)
+- **AJAX destekli sepet yönetimi** (sayfa yenilenmeden ekleme / çıkarma)
 - Business katmanında **%10 KDV ve genel toplam hesaplamaları**
 - AutoMapper ile DTO–Entity dönüşümleri
 
@@ -51,9 +51,15 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 
 ### 📱 QR Kod Yönetimi
 - **QRCoder** ile dinamik QR kod oluşturma
-- QR kod görselini Base64 formatında üretme ve indirme
+- QR kod görsellerinin Base64 formatında üretilmesi ve indirilmesi
 - **ZXing.Net** ile QR kod çözümleme (görsel üzerinden)
 - Masa, menü veya özel linkler için kullanım senaryoları
+
+### 📧 Mail Servis Entegrasyonu 
+- **MailKit & MimeKit:** Projeye profesyonel SMTP mail gönderim altyapısı kuruldu.
+- **Zengin Metin Editörü (Summernote):** Kullanıcıların mail içeriklerini kalın, italik ve listeli şekilde görsel olarak düzenleyebilmesi sağlandı.
+- **Google App Password:** Gmail SMTP sunucusu üzerinden güvenli kimlik doğrulama protokolü uygulandı.
+- **Dinamik Alıcı** Alıcı, konu ve içerik yönetimi
 
 ---
 
@@ -75,6 +81,9 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **JavaScript**
 - **Font Awesome**
 - **Visual Studio**
+- **MailKit**
+- **MimeKit**
+- **Summernote (Rich Text Editor)**
 
 ---
 
@@ -95,11 +104,6 @@ Bu proje ile:
 - Gerçek zamanlı uygulamalar geliştirmek
 - ASP.NET Core Identity ve SignalR entegrasyonunu öğrenmek
 - Kurumsal projelere uygun backend & frontend yapısını deneyimlemek
-amaçlanmıştır.
+  amaçlanmıştır.
 
----
 
-## 📎 Not
-
-> Bu proje bir eğitim sürecinin parçası olarak geliştirilmiştir.  
-> Kod yapısı ve mimari tercihler, gerçek dünya projelerine referans olacak şekilde kurgulanmıştır.
