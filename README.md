@@ -27,6 +27,10 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - Global **Authorize Filter** ile sayfa bazlı güvenlik
 - Login / AccessDenied yönlendirmeleri
 
+### ⚙️ Kullanıcı Ayarları & Profil Yönetimi 
+- **Settings Modülü:** Kullanıcıların profil bilgilerini (Ad, Soyad, Kullanıcı Adı vb.) güncelleyebileceği özel bir arayüz geliştirildi.
+- **Güvenli Güncelleme:** Bilgi değişikliği sırasında şifre ve şifre tekrarı eşleşmesi kontrol edilerek hatalı girişlerin önüne geçildi.
+
 ### ⚡ SignalR – Gerçek Zamanlı İletişim
 - Anlık bildirimler
 - Masa ve sipariş durumlarının canlı takibi
