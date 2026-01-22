@@ -14,22 +14,35 @@
     <link rel="stylesheet" type="text/css" href="~/colorlib-regform-32/css/nunito-font.css">
     <link rel="stylesheet" href="~/colorlib-regform-32/css/style.css" />
     <style>
-        /* Resmin tam sığması ve bozulmaması için ekleme */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .page-content {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333; /* Büyük monitördeki boşluğu bu renk kapatır */
+        }
+
         .form-left img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Resmi kırpma yapmadan alanı dolduracak şekilde ayarlar */
+            object-fit: cover;
             display: block;
         }
-        /* Giriş Yap butonunu siyah/koyu yapmak için */
+
         .form-detail .register {
-            background: #222 !important; /* Koyu gri/siyah tonu */
+            background: #222 !important;
             color: #fff;
             cursor: pointer;
         }
 
             .form-detail .register:hover {
-                background: #000 !important; /* Üzerine gelince tam siyah */
+                background: #000 !important;
             }
     </style>
 </head>
