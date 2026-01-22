@@ -24,7 +24,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult ProductList()
         {
             var values = _mapper.Map<List<ResultProductDto>>(_productService.TGetListAll());
-            return Ok(values);
+            return Ok(_mapper.Map<List<ResultProductDto>>(values));
         }
 
 

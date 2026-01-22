@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SignalRDine.BusinessLayer.Abstract;
 using SignalRDine.DtoLayer.BasketDto;
+using SignalRDine.DtoLayer.BookingDto;
 
 namespace SignalRDine.Api.Controllers
 {
@@ -10,10 +12,12 @@ namespace SignalRDine.Api.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IBasketService _basketService;
+        private readonly IMapper _mapper;
 
-        public BasketController(IBasketService basketService)
+        public BasketController(IBasketService basketService, IMapper mapper)
         {
             _basketService = basketService;
+            _mapper = mapper;
         }
 
         [HttpGet]

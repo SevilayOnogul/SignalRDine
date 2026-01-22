@@ -56,7 +56,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult GetContact(int id)
         {
             var value=_contactService.TGetByID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetContactDto>(value));
         }
     }
 }

@@ -79,7 +79,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult GetListByStatusTrue()
         {
             var values=_discountService.TGetListByStatusTrue();
-            return Ok(values);
+            return Ok(_mapper.Map<List<ResultDiscountDto>>(values));
 
         }
 

@@ -55,7 +55,6 @@ namespace SignalRDine.Api.Controllers
 		public IActionResult UpdateMenuTable(UpdateMenuTableDto updateMenuTableDto)
 		{
             var value = _mapper.Map<MenuTable>(updateMenuTableDto);
-            value.MenuTableID = updateMenuTableDto.MenuTableID; // ID'yi manuel eşitle
             _menuTableService.TUpdate(value);
             return Ok("Masa Bilgisi Güncellendi");
 		}
@@ -64,8 +63,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult GetMenuTable(int id)
         {
             var value = _menuTableService.TGetByID(id);
-            // UI'ya veriyi UpdateMenuTableDto formatında gönderiyoruz
-            return Ok(_mapper.Map<UpdateMenuTableDto>(value));
+            return Ok(_mapper.Map<GetMenuTableDto>(value));
         }
     }
 }

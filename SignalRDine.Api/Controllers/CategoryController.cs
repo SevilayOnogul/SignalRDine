@@ -30,11 +30,9 @@ namespace SignalRDine.Api.Controllers
         [HttpPost]
         public IActionResult CreateCategory(CreateCategoryDto createCategoryDto)
         {
-            _categoryService.TAdd(new Category()
-            {
-                CategoryName = createCategoryDto.CategoryName,
-                CategoryStatus = true
-            });
+            var value = _mapper.Map<Category>(createCategoryDto);
+            value.CategoryStatus = true; 
+            _categoryService.TAdd(value);
             return Ok("Kategori Eklendi");
         }
 
@@ -49,21 +47,16 @@ namespace SignalRDine.Api.Controllers
         [HttpPut]
         public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
-            _categoryService.TUpdate(new Category
-            {
-                CategoryName = updateCategoryDto.CategoryName,
-                CategoryID = updateCategoryDto.CategoryID,
-                CategoryStatus = updateCategoryDto.CategoryStatus
-
-            });
+            var value=_mapper.Map<Category>(updateCategoryDto);
+            _categoryService.TUpdate(value);
             return Ok("Güncelleme Yapıldı");
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetCategory(int id) 
-        { 
-            var value=_categoryService.TGetByID(id);
-            return Ok(value);   
+        public IActionResult GetCategory(int id)
+        {
+            var value = _categoryService.TGetByID(id);
+            return Ok(_mapper.Map<GetCategoryDto>(value)); 
         }
 
         [HttpGet("CategoryCount")]

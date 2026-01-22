@@ -24,7 +24,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult MessageList()
         {
             var values=_messageService.TGetListAll();
-            return Ok(values);
+            return Ok(_mapper.Map<List<ResultMessageDto>>(values));
         }
 
         [HttpPost]
@@ -53,11 +53,12 @@ namespace SignalRDine.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetMessage(int id) 
-        { 
-            var value=_messageService.TGetByID(id);
-            return Ok(value);
+        public IActionResult GetMessage(int id)
+        {
+            var value = _messageService.TGetByID(id);
+            return Ok(_mapper.Map<GetByIdMessageDto>(value));
         }
+
 
 
     }

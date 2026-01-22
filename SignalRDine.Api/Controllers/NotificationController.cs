@@ -12,7 +12,7 @@ namespace SignalRDine.Api.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly INotificationService _notificationService;
-        private readonly IMapper _mapper; // Mapper eklendi
+        private readonly IMapper _mapper; 
 
         public NotificationController(INotificationService notificationService, IMapper mapper)
         {
@@ -24,7 +24,7 @@ namespace SignalRDine.Api.Controllers
         public IActionResult NotificationList()
         {
             var values = _notificationService.TGetListAll();
-            return Ok(values);
+            return Ok(_mapper.Map<List<ResultNotificationDto>>(values));
         }
 
         [HttpGet("NotificationCountByStatusFalse")]
@@ -42,7 +42,6 @@ namespace SignalRDine.Api.Controllers
         [HttpPost]
         public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
         {
-            // Manuel atama yerine tek satırda eşleme
             var value = _mapper.Map<Notification>(createNotificationDto);
             value.Status = false;
             value.Date = DateTime.Now;
@@ -51,7 +50,7 @@ namespace SignalRDine.Api.Controllers
             return Ok("Ekleme işlemi başarıyla yapıldı");
         }
 
-        [HttpDelete("{id}")] // Route parametresi eklendi
+        [HttpDelete("{id}")] 
         public IActionResult DeleteNotification(int id)
         {
             var value = _notificationService.TGetByID(id);
@@ -63,13 +62,12 @@ namespace SignalRDine.Api.Controllers
         public IActionResult GetNotification(int id)
         {
             var value = _notificationService.TGetByID(id);
-            return Ok(value);
+            return Ok(_mapper.Map<GetByIdNotificationDto>(value));
         }
 
         [HttpPut]
         public IActionResult UpdateNotification(UpdateNotificationDto updateNotificationDto)
         {
-            // Manuel atama yerine tek satırda eşleme
             var value = _mapper.Map<Notification>(updateNotificationDto);
 
             _notificationService.TUpdate(value);
