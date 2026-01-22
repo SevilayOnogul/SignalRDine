@@ -61,4 +61,32 @@ public class EfProductDal : GenericRepository<Product>, IProductDal
 		//return _context.Products
 		//	.Where(x=>x.CategoryID==(_context.Categories.Where(y=>y.CategoryName=="Hamburger").Select(z=>z.CategoryID).FirstOrDefault())).Average(c=>c.Price);
 	}
+
+    public decimal ProductPriceBySteakBurger()
+    {
+        return _context.Products.Where(x=>x.ProductName == "Steak Burger").Select(y=>y.Price).FirstOrDefault();
+    }
+
+    public decimal TotalPriceByDrinkCategory()
+    {
+       int id=_context.Categories.Where(x=>x.CategoryName=="İçecek").Select(y=>y.CategoryID).FirstOrDefault();
+		return _context.Products.Where(x=>x.CategoryID==id).Sum(y=>y.Price);
+    }
+
+    public decimal TotalPriceBySaladCategory()
+    {
+		int id= _context.Categories.Where(x => x.CategoryName == "Salata").Select(y => y.CategoryID).FirstOrDefault();
+		return _context.Products.Where(x=>x.CategoryID==id).Sum(y=>y.Price);
+    }
+
+    public List<Product> GetLast9Products()
+    {
+        return _context.Products.Take(9).ToList();
+    }
+
+    public decimal TotalProductPrice()
+    {
+        var total = _context.Products.Sum(x => x.Price);
+        return total;
+    }
 }

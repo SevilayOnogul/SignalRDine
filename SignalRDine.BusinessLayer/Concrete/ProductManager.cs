@@ -82,5 +82,35 @@ namespace SignalRDine.BusinessLayer.Concrete
 		{
 			return _productDal.ProductAvgPriceByHamburger();
 		}
-	}
+
+        public decimal TProductPriceBySteakBurger()
+        {
+            return _productDal.ProductPriceBySteakBurger();
+        }
+
+        public decimal TTotalPriceByDrinkCategory()
+        {
+            return _productDal.TotalPriceByDrinkCategory();
+        }
+
+        public decimal TTotalPriceBySaladCategory()
+        {
+            return _productDal.TotalPriceBySaladCategory();
+        }
+
+        public List<Product> TGetLast9Products()
+        {
+            return _productDal.GetLast9Products();
+        }
+
+        public decimal TTotalProductPrice()
+        {
+            return _productDal.TotalProductPrice();
+        }
+
+        public int TGetProductCount()
+        {
+            return _productDal.GetProductCount();   
+        }
+    }
 }

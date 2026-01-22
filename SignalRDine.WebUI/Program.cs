@@ -14,14 +14,24 @@ builder.Services.AddDbContext<SignalRDineContext>();
 builder.Services.AddIdentity<AppUser, AppRole>(options => {
     options.SignIn.RequireConfirmedEmail = false; // Bunu false yap
 }).AddEntityFrameworkStores<SignalRDineContext>();
+//builder.Services.Configure<IdentityOptions>(options =>
+//{
+//    options.Password.RequireDigit = false;
+//    options.Password.RequiredLength = 3;
+//    options.Password.RequireLowercase = false;
+//    options.Password.RequireUppercase = false;
+//    options.Password.RequireNonAlphanumeric = false;
+//});
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    options.Password.RequireDigit = false;
-    options.Password.RequiredLength = 3;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
 });
+
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

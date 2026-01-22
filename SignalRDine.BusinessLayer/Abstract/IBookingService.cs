@@ -11,5 +11,6 @@ namespace SignalRDine.BusinessLayer.Abstract
     {
         void TBookingStatusApproved(int id);
         void TBookingStatusCancelled(int id);
+        public int TGetBookingCount();
     }
 }

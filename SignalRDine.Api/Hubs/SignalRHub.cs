@@ -92,7 +92,47 @@ namespace SignalRDine.Api.Hubs
 
             var value3 = _menuTableService.TMenuTableCount();
             await Clients.All.SendAsync("ReceiveMenuTableCount", value3);
-		}
+
+            var value5=_productService.TProductPriceAvg();
+            await Clients.All.SendAsync("ReceiveProductPriceAvg",value5);
+            
+            var value6=_productService.TProductAvgPriceByHamburger();
+            await Clients.All.SendAsync("ReceiveAvgPriceByHamburger", value6);
+
+            var value7=_productService.TProductCountByCategoryNameDrink();
+            await Clients.All.SendAsync("ReceiveProductCountByCategoryNameDrink",value7);
+
+            var value8=_orderService.TTotalOrderCount();
+            await Clients.All.SendAsync("ReceiveTotalOrderCount",value8); 
+            
+            var value9=_productService.TProductPriceBySteakBurger();
+            await Clients.All.SendAsync("ReceiveProductPriceBySteakBurger", value9);
+            
+            var value10=_productService.TTotalPriceByDrinkCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceByDrinkCategory", value10);
+            
+            var value11=_productService.TTotalPriceByDrinkCategory();
+            await Clients.All.SendAsync("ReceiveTotalPriceBySaladCategory", value11);
+                
+            var value12=_productService.TTotalProductPrice();
+            await Clients.All.SendAsync("ReceiveTotalProductPrice", value12);
+            
+            var value13=_productService.TProductPriceAvg();
+            await Clients.All.SendAsync("ReceiveProductPriceAvg", value13);
+            
+            var value14=_orderService.TLastOrderPrice();
+            await Clients.All.SendAsync("ReceiveLastOrderPrice", value14);
+            
+            var value15=_categoryService.TCategoryCount();
+            await Clients.All.SendAsync("ReceiveCategoryCount", value15);
+            
+            var value16=_productService.TGetProductCount();
+            await Clients.All.SendAsync("ReceiveGetProductCount", value16);
+
+            var bookingCount = _bookingService.TGetBookingCount();
+            await Clients.All.SendAsync("ReceiveBookingCount", bookingCount);
+
+        }
         public async Task GetBookingList()
         {
             var values = _bookingService.TGetListAll();

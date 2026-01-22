@@ -38,6 +38,11 @@ namespace SignalRDine.BusinessLayer.Concrete
            _bookingDal.Delete(entity);
         }
 
+        public int TGetBookingCount()
+        {
+            return _bookingDal.GetBookingCount();
+        }
+
         public Booking TGetByID(int id)
         {
             return _bookingDal.GetByID(id);

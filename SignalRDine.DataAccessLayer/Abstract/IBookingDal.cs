@@ -11,5 +11,7 @@ namespace SignalRDine.DataAccessLayer.Abstract
     {
         void BookingStatusApproved(int id);
         void BookingStatusCancelled(int id);
+        int GetBookingCount();
+
     }
 }

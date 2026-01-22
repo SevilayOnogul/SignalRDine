@@ -87,5 +87,13 @@ namespace SignalRDine.Api.Controllers
             return Ok("Rezervasyon Açıklaması Değiştirildi");
         
         }
+        
+        [HttpGet("GetBookingCount")]
+        public IActionResult GetBookingCount()
+        { 
+           var values= _bookingService.TGetBookingCount();
+            return Ok(values);
+        
+        }
     }
 }

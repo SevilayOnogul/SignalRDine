@@ -108,5 +108,44 @@ namespace SignalRDine.Api.Controllers
 		{
 			return Ok(_productService.TProductAvgPriceByHamburger());
 		}
-	}
+        
+        [HttpGet("ProductPriceBySteakBurger")]
+		public IActionResult ProductPriceBySteakBurger()
+		{
+			return Ok(_productService.TProductPriceBySteakBurger());
+		}
+        
+        [HttpGet("TotalPriceByDrinkCategory")]
+		public IActionResult TotalPriceByDrinkCategory()
+		{
+			return Ok(_productService.TTotalPriceByDrinkCategory());
+		}
+
+        [HttpGet("TotalPriceBySaladCategory")]
+        public IActionResult TotalPriceBySaladCategory()
+        {
+            return Ok(_productService.TTotalPriceBySaladCategory());
+        }
+
+        [HttpGet("GetLast9Products")]
+        public IActionResult GetLast9Products()
+        {
+            var value = _productService.TGetLast9Products();
+            return Ok(value);
+        } 
+        
+        [HttpGet("TotalProductPrice")]
+        public IActionResult TotalProductPrice()
+        {
+            var value = _productService.TTotalProductPrice();
+            return Ok(value);
+        }
+
+        [HttpGet("GetProductCount")]
+        public IActionResult GetProductCount()
+        {
+            var value = _productService.TGetProductCount();
+            return Ok(value);
+        }
+    }
 }
