@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRDine.WebUI.Dtos.BookingDtos;
+using SignalRDine.WebUI.Dtos.ContactDtos;
 using System.Text;
 
 namespace SignalRDine.WebUI.Controllers
@@ -14,8 +15,21 @@ namespace SignalRDine.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7263/api/Contact");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                var firstContact = values.FirstOrDefault();
+                if (firstContact != null)
+                {
+                    ViewBag.location = firstContact.Location;
+
+                }
+            }
             return View();
         }
         [HttpPost]
@@ -29,7 +43,13 @@ namespace SignalRDine.WebUI.Controllers
             {
                 return RedirectToAction("Index","Default");
             }
-           return View();
+            else
+            {
+                var errorContent = await responseMessage.Content.ReadAsStringAsync();
+                ModelState.AddModelError(string.Empty, errorContent);
+                return View();
+
+            }
         }
     }
 }

@@ -12,32 +12,44 @@ namespace SignalRDine.WebUI.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Index(CreateMailDto createMailDto)
         {
-            MimeMessage mimeMessage=new MimeMessage();
+            try
+            {
+                MimeMessage mimeMessage = new MimeMessage();
 
-            MailboxAddress mailboxAddressFrom = new MailboxAddress("SignalR Rezervasyon", "sevilaygalatasaray5@gmail.com");
-            mimeMessage.From.Add(mailboxAddressFrom);
+                MailboxAddress mailboxAddressFrom = new MailboxAddress("SignalR Rezervasyon", "apikurs2@gmail.com");
+                mimeMessage.From.Add(mailboxAddressFrom);
 
-            MailboxAddress mailboxAddressTo = new MailboxAddress("User", createMailDto.ReceiverMail);
-            mimeMessage.To.Add(mailboxAddressTo);
+                MailboxAddress mailboxAddressTo = new MailboxAddress("User", createMailDto.ReceiverMail);
+                mimeMessage.To.Add(mailboxAddressTo);
 
-            var bodyBuilder=new BodyBuilder();
-            bodyBuilder.HtmlBody=createMailDto.Body;
-            mimeMessage.Body=bodyBuilder.ToMessageBody();
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = createMailDto.Body;
+                mimeMessage.Body = bodyBuilder.ToMessageBody();
 
-            mimeMessage.Subject = createMailDto.Subject;
+                mimeMessage.Subject = createMailDto.Subject;
 
-            SmtpClient smtpClient = new SmtpClient();
-            smtpClient.Connect("smtp.gmail.com", 587, false);
-            smtpClient.Authenticate("sevilaygalatasaray5@gmail.com", "wworxavzlxgkwmqb");
+                using (var smtpClient = new SmtpClient())
+                {
+                    smtpClient.Connect("smtp.gmail.com", 587, false);
+                    smtpClient.Authenticate("apikurs2@gmail.com", "jkkj wwfm uhur zcps");
+                    smtpClient.Send(mimeMessage);
+                    smtpClient.Disconnect(true);
+                }
 
-            smtpClient.Send(mimeMessage);
-            smtpClient.Disconnect(true);
-
-
-            return RedirectToAction("Index","Category");
+                // Başarılı bildirim sinyali
+                TempData["MailStatus"] = "Success";
+                return RedirectToAction("Index", "Category");
+            }
+            catch (Exception)
+            {
+                // Hata durumunda kullanıcıya bilgi vermek için
+                TempData["MailStatus"] = "Error";
+                return View();
+            }
         }
     }
 }

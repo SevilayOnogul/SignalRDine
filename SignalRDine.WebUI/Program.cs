@@ -1,27 +1,23 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using SignalRDine.DataAccessLayer.Concrete;
 using SignalRDine.EntityLayer.Entities;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var requireAuthorizePolicy=new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+// Yetkilendirme Politikasý
+var requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
 
 builder.Services.AddHttpClient();
 builder.Services.AddDbContext<SignalRDineContext>();
-//builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<SignalRDineContext>();
+
+// Identity Ayarlarý
 builder.Services.AddIdentity<AppUser, AppRole>(options => {
-    options.SignIn.RequireConfirmedEmail = false; // Bunu false yap
+    options.SignIn.RequireConfirmedEmail = false;
 }).AddEntityFrameworkStores<SignalRDineContext>();
-//builder.Services.Configure<IdentityOptions>(options =>
-//{
-//    options.Password.RequireDigit = false;
-//    options.Password.RequiredLength = 3;
-//    options.Password.RequireLowercase = false;
-//    options.Password.RequireUppercase = false;
-//    options.Password.RequireNonAlphanumeric = false;
-//});
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -32,24 +28,28 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = true;
 });
 
-
+// Cookie Ayarlarý
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Login/Index/"; // Süre dolunca buraya yönlendirir
-    options.Cookie.HttpOnly = true;      // Güvenlik için XSS engeller
-    //options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Test için 60 dk idealdir
-    options.ExpireTimeSpan = TimeSpan.FromDays(10); // Test için 60 dk idealdir
+    options.LoginPath = "/Login/Index/";
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(10);
 });
 
-// Add services to the container.
+// MVC ve Validation Birleþtirilmiþ Yapý
 builder.Services.AddControllersWithViews(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-
-}); 
+})
+.AddFluentValidation(fv =>
+{
+    fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    fv.DisableDataAnnotationsValidation = true;
+});
 
 var app = builder.Build();
 
+// 404 Hata Yönetimi
 app.UseStatusCodePages(async x =>
 {
     if (x.HttpContext.Response.StatusCode == 404)
@@ -58,17 +58,14 @@ app.UseStatusCodePages(async x =>
     }
 });
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

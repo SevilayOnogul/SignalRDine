@@ -69,3 +69,15 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var status = '@TempData["MailStatus"]';
+        if (status === "Success") {
+            Swal.fire('Başarılı!', 'Mail başarıyla gönderildi.', 'success');
+        } else if (status === "Error") {
+            Swal.fire('Hata!', 'Mail gönderilirken bir sorun oluştu.', 'error');
+        }
+    });
+</script>
