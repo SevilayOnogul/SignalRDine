@@ -1,0 +1,115 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sayfa Bulunamadı | SignalR Dine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Siyah yerine derin lacivert ve koyu mavi geçişi */
+            background: radial-gradient(circle, #1b263b 0%, #0d1b2a 100%); 
+            color: #e0e1dd;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .error-wrapper {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-code {
+            font-family: 'Playfair Display', serif;
+            font-size: 15vw;
+            line-height: 1;
+            color: #e09f3e; 
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .error-message {
+            font-size: 1.6rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: #f4f4f4;
+        }
+
+        .error-sub {
+            color: #778da9; 
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 4px; 
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background-color: #e09f3e;
+            color: #0d1b2a;
+        }
+
+        .btn-primary:hover {
+            background-color: #fff;
+            color: #0d1b2a;
+            transform: scale(1.05);
+        }
+
+        .btn-outline {
+            border: 1px solid #778da9;
+            color: #778da9;
+        }
+
+        .btn-outline:hover {
+            border-color: #e09f3e;
+            color: #e09f3e;
+        }
+
+        @@media (max-width: 768px) {
+            .error-code { font-size: 35vw; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-wrapper">
+        <div class="error-code">404</div>
+        <div class="error-message">Aradığınız Lezzet Bulunamadı</div>
+        <div class="error-sub">Görünüşe göre bu sayfa menümüzden kaldırılmış.</div>
+        
+        <div class="btn-group">
+            <a href="/Default/Index" class="btn btn-primary">ANA SAYFAYA DÖN</a>
+            <a href="/Contact/Index" class="btn btn-outline">BİZE ULAŞIN</a>
+        </div>
+    </div>
+
+</body>
+</html>
