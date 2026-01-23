@@ -28,6 +28,10 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - Login / AccessDenied yönlendirmeleri
 - Yetkisiz veya hatalı URL erişimlerinde kullanıcı deneyimini artırmak amacıyla özel 404 hata sayfası entegre edildi.
 
+### 🌍 Dünya Mutfağı Entegrasyonu
+- RapidAPI (Tasty) Bağlantısı: Tasty API üzerinden çekilen asenkron verilerle, kullanıcılara tarif videoları, görseller ve hazırlık sürelerini içeren geniş bir yemek listesi sunuldu.
+- Dinamik Veri İşleme: Dış kaynaktan gelen JSON verileri DTO yapıları ile karşılanarak performanslı bir listeleme sağlandı.
+
 ### ⚙️ Kullanıcı Ayarları & Profil Yönetimi 
 - **Settings Modülü:** Kullanıcıların profil bilgilerini (Ad, Soyad, Kullanıcı Adı vb.) güncelleyebileceği özel bir arayüz geliştirildi.
 - **Güvenli Güncelleme:** Bilgi değişikliği sırasında şifre ve şifre tekrarı eşleşmesi kontrol edilerek hatalı girişlerin önüne geçildi.
@@ -102,8 +106,7 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
   - En az 6 karakter
   - Büyük harf, küçük harf, rakam ve özel karakter zorunluluğu
 - Authentication & Authorization middleware yapılandırması
-- HttpClient yönetimi, socket exhaustion riskini önlemek amacıyla
-  merkezi ve kontrollü bir yapıya taşındı.
+- HttpClient yönetimi, socket exhaustion riskini önlemek amacıyla merkezi ve kontrollü bir yapıya taşındı.
 
 ---
 
