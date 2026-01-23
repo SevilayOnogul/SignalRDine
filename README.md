@@ -26,6 +26,7 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - ASP.NET Core **Identity** ile kullanıcı ve rol yönetimi
 - Global **Authorize Filter Policy** ile sayfa bazlı güvenlik
 - Login / AccessDenied yönlendirmeleri
+- Yetkisiz veya hatalı URL erişimlerinde kullanıcı deneyimini artırmak amacıyla özel 404 hata sayfası entegre edildi.
 
 ### ⚙️ Kullanıcı Ayarları & Profil Yönetimi 
 - **Settings Modülü:** Kullanıcıların profil bilgilerini (Ad, Soyad, Kullanıcı Adı vb.) güncelleyebileceği özel bir arayüz geliştirildi.
@@ -41,6 +42,8 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **AJAX destekli sepet yönetimi** (sayfa yenilenmeden ekleme / çıkarma)
 - Business katmanında **%10 KDV ve genel toplam hesaplamaları**
 - AutoMapper ile DTO–Entity dönüşümleri
+- Footer ve iletişim alanı verileri, API üzerinden
+  IHttpClientFactory kullanılarak asenkron şekilde çekildi.
 
 ### 📊 Dashboard & Yönetim Paneli
 - Yönetici paneli üzerinden:
@@ -60,6 +63,8 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **Zengin Metin Editörü (Summernote):** Kullanıcıların mail içeriklerini kalın, italik ve listeli şekilde görsel olarak düzenleyebilmesi sağlandı.
 - **Google App Password:** Gmail SMTP sunucusu üzerinden güvenli kimlik doğrulama protokolü uygulandı.
 - **Dinamik Alıcı** Alıcı, konu ve içerik yönetimi
+- İletişim alanında tek tıkla arama (tel:) ve mail gönderme (mailto:) entegrasyonları sağlandı.
+- Harita lokasyonları Html.Raw kullanılarak dinamik şekilde yönetildi.
 
 ---
 
@@ -94,6 +99,8 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
   - En az 6 karakter
   - Büyük harf, küçük harf, rakam ve özel karakter zorunluluğu
 - Authentication & Authorization middleware yapılandırması
+- HttpClient yönetimi, socket exhaustion riskini önlemek amacıyla
+  merkezi ve kontrollü bir yapıya taşındı.
 
 ---
 
