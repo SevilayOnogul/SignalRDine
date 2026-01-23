@@ -37,6 +37,9 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - Masa ve sipariş durumlarının canlı takibi
 - Dashboard üzerinde real-time veri güncellemeleri
 
+### 🥗 Menü & Kategori Yönetimi
+- Dinamik Kategori Sistemi: Menü kategorileri API üzerinden asenkron olarak çekilerek kullanıcı arayüzünde dinamik olarak listelendi.
+
 ### 🧾 CRUD, Sepet ve Asenkron İşlemler
 - Menü, rezervasyon, iletişim ve içerik yönetimi için CRUD operasyonları
 - **AJAX destekli sepet yönetimi** (sayfa yenilenmeden ekleme / çıkarma)
