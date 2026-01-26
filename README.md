@@ -63,7 +63,10 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **QRCoder** ile dinamik QR kod oluşturma
 - QR kod görsellerinin Base64 formatında üretilmesi ve indirilmesi
 - **ZXing.Net** ile QR kod çözümleme (görsel üzerinden)
-- Masa, menü veya özel linkler için kullanım senaryoları
+- Akıllı Masa Yönlendirmesi: Okutulan QR kod üzerinden masanın doluluk durumuna göre otomatik yönlendirme mantığı:
+   - Boş Masalar: Doğrudan ürün seçim menüsüne yönlendirilir.
+   - Dolu Masalar: Mevcut siparişlerin takibi ve ödeme işlemleri için sepet sayfasına yönlendirilir.
+- Dinamik Görselleştirme: Masa listesi üzerinde QR kod ile ilişkili doluluk durumlarının (Boş/Dolu) anlık renk kodlarıyla (Yeşil/Kırmızı) takibi sağlandı.
 
 ### 📧 Mail Servis Entegrasyonu 
 - **MailKit & MimeKit:** Projeye profesyonel SMTP mail gönderim altyapısı kuruldu.
