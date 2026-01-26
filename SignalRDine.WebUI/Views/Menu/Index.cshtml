@@ -47,7 +47,7 @@
                     <h6>
                       @item.Price₺
                     </h6>
-                    <a href="javascript:void(0)" onclick="showproductid(@item.ProductID)">
+                    <a href="javascript:void(0)" onclick="showproductid(@item.ProductID,@ViewBag.v)">
                       <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                         <g>
                           <g>
@@ -125,23 +125,26 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
 
     <script>
-        function showproductid(value) {
-            event.preventDefault();
-            var id = value;
+        function showproductid(productId, menuTableId) {
             $.ajax({
                 type: 'POST',
-                url: '/Menu/AddBasket/'+id, // Boş bırakırsan aynı sayfaya post eder
-                data: { item: id },
-                // contentType:'application/json,'
-                success: function () {
-                    Swal.fire("Başarılı!Seçtiğiniz Ürün Sepete Eklendi!", "ID: " + id, "success");
+                url: "/Menu/AddBasket",
+                data: {
+                    id: productId,
+                    menuTableId: menuTableId // MenuTableId burada gönderiliyor
                 },
-                error: function () {
-                    alert("Hata oluştu! Console'u (F12) kontrol et.");
+                success: function () {
+                    swal("Seçilen Ürün ID:" + productId, "Seçtiğiniz Ürün Sepete Eklendi!", "success");
+                },
+                error: function (xhr, status, error) {
+                    console.error("Hata:", error);
+                    console.log("Yanıt:", xhr.responseText);
                 }
             });
-        }
+        };
         
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </body>
 </html>

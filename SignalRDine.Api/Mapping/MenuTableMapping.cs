@@ -10,7 +10,8 @@ namespace SignalRDine.Api.Mapping
         {
             CreateMap<MenuTable,ResultMenuTableDto>().ReverseMap();
             CreateMap<MenuTable, CreateMenuTableDto>().ReverseMap();
-            CreateMap<MenuTable,UpdateMenuTableDto>().ReverseMap();
+            CreateMap<MenuTable, UpdateMenuTableDto>().ReverseMap();
+            CreateMap<MenuTable,GetMenuTableDto>().ReverseMap();
         }
     }
 }

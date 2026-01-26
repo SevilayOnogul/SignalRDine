@@ -64,11 +64,14 @@ builder.Services.AddScoped<INotificationDal, EfNotificationDal>();
 builder.Services.AddScoped<IMessageService, MessageManager>();
 builder.Services.AddScoped<IMessageDal, EfMessageDal>();
 
-// Validation
-builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();
-builder.Services.AddFluentValidationAutoValidation();
 
-// Controllers (Tek seferde ve Json ayarlarýyla)
+builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();
+
+builder.Services.AddFluentValidationAutoValidation(config =>
+{
+    config.DisableDataAnnotationsValidation = true;
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {

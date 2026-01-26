@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
 using SignalRDine.WebUI.Dtos.BookingDtos;
 using SignalRDine.WebUI.Dtos.ContactDtos;
+using SignalRDine.WebUI.Models;
 using System.Text;
 
 namespace SignalRDine.WebUI.Controllers
@@ -33,20 +35,30 @@ namespace SignalRDine.WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult>Index(CreateBookingDto createBookingDto)
+        public async Task<IActionResult> Index(CreateBookingDto createBookingDto)
         {
-            var client=_httpClientFactory.CreateClient();
-            var jsonData=JsonConvert.SerializeObject(createBookingDto);
-            StringContent content = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7263/api/Booking", content);
-            if(responseMessage.IsSuccessStatusCode)
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createBookingDto);
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7263/api/Booking/", content);
+            if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index","Default");
+                return RedirectToAction("Index", "Default");
             }
             else
             {
-                var errorContent = await responseMessage.Content.ReadAsStringAsync();
-                ModelState.AddModelError(string.Empty, errorContent);
+                var errorResponse = await responseMessage.Content.ReadFromJsonAsync<ApiValidationErrorResponse>();
+                if (errorResponse?.Errors != null)
+                {
+                    foreach(var error in errorResponse.Errors)
+                    {
+                        foreach(var errorMessage in error.Value)
+                        {
+                            ModelState.AddModelError(error.Key,errorMessage);
+                        }
+                    }
+                }
+              
                 return View();
 
             }

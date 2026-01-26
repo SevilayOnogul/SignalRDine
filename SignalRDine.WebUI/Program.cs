@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using SignalRDine.BusinessLayer.ValidationRules.BookingValidations;
 using SignalRDine.DataAccessLayer.Concrete;
 using SignalRDine.EntityLayer.Entities;
 using System.Reflection;
@@ -40,12 +41,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-})
-.AddFluentValidation(fv =>
-{
-    fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-    fv.DisableDataAnnotationsValidation = true;
 });
+
+builder.Services.AddFluentValidationAutoValidation(config =>
+{
+    config.DisableDataAnnotationsValidation = true;
+});
+
 
 var app = builder.Build();
 

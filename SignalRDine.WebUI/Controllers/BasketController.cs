@@ -19,7 +19,7 @@ namespace SignalRDine.WebUI.Controllers
             //TempData["id"] = id;
 
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/Basket/BasketListByMenuTableWithProductName?id=1");
+            var responseMessage = await client.GetAsync($"https://localhost:7263/api/Basket/BasketListByMenuTableWithProductName?id={id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
