@@ -23,103 +23,56 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 ## 🚀 Öne Çıkan Özellikler
 
 ### 🔐 Kimlik Doğrulama & Yetkilendirme
-- ASP.NET Core **Identity** ile kullanıcı ve rol yönetimi
-- Global **Authorize Filter Policy** ile sayfa bazlı güvenlik
-- Login / AccessDenied yönlendirmeleri
+- ASP.NET Core **Identity** ile kullanıcı ve rol yönetimi.
+- Global **Authorize Filter Policy** ile sayfa bazlı güvenlik.
 - Yetkisiz veya hatalı URL erişimlerinde kullanıcı deneyimini artırmak amacıyla özel 404 hata sayfası entegre edildi.
 
 ### 🌍 Dünya Mutfağı Entegrasyonu
-- RapidAPI (Tasty) Bağlantısı: Tasty API üzerinden çekilen asenkron verilerle, kullanıcılara tarif videoları, görseller ve hazırlık sürelerini içeren geniş bir yemek listesi sunuldu.
-- Dinamik Veri İşleme: Dış kaynaktan gelen JSON verileri DTO yapıları ile karşılanarak performanslı bir listeleme sağlandı.
+- **RapidAPI (Tasty) Entegrasyonu:** Dış kaynaktan çekilen verilerle tarif videoları, görseller ve hazırlık sürelerini içeren geniş bir yemek listesi sunuldu.
 
-### ⚙️ Kullanıcı Ayarları & Profil Yönetimi 
-- **Settings Modülü:** Kullanıcıların profil bilgilerini (Ad, Soyad, Kullanıcı Adı vb.) güncelleyebileceği özel bir arayüz geliştirildi.
-- **Güvenli Güncelleme:** Bilgi değişikliği sırasında şifre ve şifre tekrarı eşleşmesi kontrol edilerek hatalı girişlerin önüne geçildi.
+### 🪑 Masa Seçimi & Akıllı Yönlendirme
+- **Durum Bazlı Görselleştirme:** Masaların anlık doluluk durumuna göre (Boş/Dolu) Yeşil/Kırmızı renk kodları ve özel ikonlarla (Sandalye/Kasa) dinamik gösterimi sağlandı.
+- **Akıllı İş Akışı:** - **Boş Masalar:** Müşteriyi doğrudan ürün seçim menüsüne yönlendirir.
+    - **Dolu Masalar:** Ödeme ve adisyon kontrolü için doğrudan sepet sayfasına yönlendirilir.
+- **Kullanıcı Deneyimi:** Breadcrumb yapısı ve Bootstrap bileşenleri ile optimize edilmiş masa seçim süreci tasarlandı.
 
-### ⚡ SignalR – Gerçek Zamanlı İletişim
-- Anlık bildirim altyapısı
-- Masa ve sipariş durumlarının canlı takibi
-- Dashboard üzerinde real-time veri güncellemeleri
-
-### 🥗 Menü & Kategori Yönetimi
-- Dinamik Kategori Sistemi: Menü kategorileri API üzerinden asenkron olarak çekilerek kullanıcı arayüzünde dinamik olarak listelendi.
-
-### 🧾 CRUD, Sepet ve Asenkron İşlemler
-- Menü, rezervasyon, iletişim ve içerik yönetimi için CRUD operasyonları
-- **AJAX destekli sepet yönetimi** (sayfa yenilenmeden ekleme / çıkarma)
-- Business katmanında **%10 KDV ve genel toplam hesaplamaları**
-- AutoMapper ile DTO–Entity dönüşümleri
-- Footer ve iletişim alanı verileri, API üzerinden
-  IHttpClientFactory kullanılarak asenkron şekilde çekildi.
-
-### 📊 Dashboard & Yönetim Paneli
-- Yönetici paneli üzerinden:
-  - Sipariş takibi
-  - Masa doluluk durumu
-  - Finansal özetler
-- Modern ve sade admin arayüzü
+### 🧾 Gelişmiş Sepet & Hesaplama Sistemi
+- **AJAX Destekli Sepet:** Sayfa yenilenmeden ürün ekleme ve çıkarma işlemleri.
+- **Yüksek Performanslı Hesaplama:** %10 KDV ve Genel Toplam hesaplamaları, performans odaklı döngü dışı mantıkla asenkron olarak yönetildi.
+- **Ürün Gruplama:** LINQ ve GroupBy kullanılarak aynı ürünlerin adet bazlı listelenmesi sağlandı.
 
 ### 📱 QR Kod Yönetimi
-- **QRCoder** ile dinamik QR kod oluşturma
-- QR kod görsellerinin Base64 formatında üretilmesi ve indirilmesi
-- **ZXing.Net** ile QR kod çözümleme (görsel üzerinden)
-- Akıllı Masa Yönlendirmesi: Okutulan QR kod üzerinden masanın doluluk durumuna göre otomatik yönlendirme mantığı:
-   - Boş Masalar: Doğrudan ürün seçim menüsüne yönlendirilir.
-   - Dolu Masalar: Mevcut siparişlerin takibi ve ödeme işlemleri için sepet sayfasına yönlendirilir.
-- Dinamik Görselleştirme: Masa listesi üzerinde QR kod ile ilişkili doluluk durumlarının (Boş/Dolu) anlık renk kodlarıyla (Yeşil/Kırmızı) takibi sağlandı.
+- **QRCoder** ile dinamik QR kod oluşturma ve Base64 formatında indirme.
+- **ZXing.Net** ile görsel üzerinden QR kod çözümleme.
+- Masa ve menü entegrasyonu ile temassız sipariş altyapısı.
+
+### ⚡ SignalR – Gerçek Zamanlı İletişim
+- Anlık bildirim altyapısı ve masa durumlarının canlı takibi.
+- Dashboard üzerinde real-time veri güncellemeleri.
 
 ### 📧 Mail Servis Entegrasyonu 
-- **MailKit & MimeKit:** Projeye profesyonel SMTP mail gönderim altyapısı kuruldu.
-- **Zengin Metin Editörü (Summernote):** Kullanıcıların mail içeriklerini kalın, italik ve listeli şekilde görsel olarak düzenleyebilmesi sağlandı.
-- **Google App Password:** Gmail SMTP sunucusu üzerinden güvenli kimlik doğrulama protokolü uygulandı.
-- **Dinamik Alıcı** Alıcı, konu ve içerik yönetimi
-- İletişim alanında tek tıkla arama (tel:) ve mail gönderme (mailto:) entegrasyonları sağlandı.
-- Harita lokasyonları Html.Raw kullanılarak dinamik şekilde yönetildi.
+- **MailKit & MimeKit** ile profesyonel SMTP altyapısı.
+- **Summernote (Rich Text Editor)** entegrasyonu ile zengin içerikli mail gönderimi.
 
 ---
 
 ## 🛠 Kullanılan Teknolojiler
 
-- **C#**
-- **.NET 8**
-- **ASP.NET Core MVC**
-- **ASP.NET Core Web API**
-- **Entity Framework Core**
-- **SignalR**
-- **ASP.NET Core Identity**
-- **MS SQL Server**
-- **AutoMapper**
-- **AJAX**
-- **QRCoder**
-- **ZXing.Net**
-- **HTML / CSS / Bootstrap**
-- **JavaScript**
-- **Font Awesome**
-- **Visual Studio**
-- **MailKit**
-- **MimeKit**
-- **Summernote (Rich Text Editor)**
+- **Backend:** .NET 8, Web API, EF Core, Identity, SignalR, AutoMapper.
+- **Frontend:** ASP.NET Core MVC, AJAX, HTML5/CSS3, Bootstrap, JavaScript.
+- **Araçlar:** QRCoder, ZXing.Net, MailKit, MimeKit, Font Awesome.
+- **Veritabanı:** MS SQL Server.
 
 ---
 
 ## 🔐 Güvenlik & Yapılandırma
 
-- Global Authorization Policy
-- Şifre kuralları:
-  - En az 6 karakter
-  - Büyük harf, küçük harf, rakam ve özel karakter zorunluluğu
-- Authentication & Authorization middleware yapılandırması
-- HttpClient yönetimi, socket exhaustion riskini önlemek amacıyla merkezi ve kontrollü bir yapıya taşındı.
+- Global Authorization Policy.
+- Güçlü şifre politikaları ve Authentication middleware yapılandırması.
+- **HttpClient Factory:** Socket exhaustion riskini önlemek için merkezi HTTP yönetimi.
 
 ---
 
 ## 📌 Amaç
 
-Bu proje ile:
-- Katmanlı mimari mantığını kavramak
-- Gerçek zamanlı uygulamalar geliştirmek
-- ASP.NET Core Identity ve SignalR entegrasyonunu öğrenmek
-- Kurumsal projelere uygun backend & frontend yapısını deneyimlemek
-  amaçlanmıştır.
-
-
+Bu proje ile katmanlı mimari mantığını kavramak, gerçek zamanlı (real-time) uygulamalar geliştirmek ve kurumsal projelere uygun backend & frontend yapılarını deneyimlemek amaçlanmıştır.
