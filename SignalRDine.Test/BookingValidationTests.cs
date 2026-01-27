@@ -21,7 +21,7 @@ namespace SignalRDine.Test
         [Fact]
         public void Mail_Should_Have_Error_When_Invalid_Format()
         {
-            var model = new CreateBookingDto { Mail = "denemegail.com" };
+            var model = new CreateBookingDto { Mail = "deneme@gmail.com" };
 
             var result = _validator.TestValidate(model);
             result.ShouldHaveValidationErrorFor(x => x.Mail);

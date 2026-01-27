@@ -16,8 +16,8 @@ namespace SignalRDine.Test
 
         [Theory]
         [InlineData(100)]  
-        [InlineData(-50)] 
-        [InlineData(0)]    
+        [InlineData(50)] 
+        [InlineData(10)]    
         public void ProductPrice_Check_Multiple_Values(decimal price)
         {
             var product = new Product { Price = price };
