@@ -17,51 +17,51 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - **Web API** → RESTful servisler  
 - **WebUI (MVC)** → Kullanıcı arayüzü  
 - **DTO Layer** → Güvenli ve kontrollü veri transferi  
+- **Test Layer** → xUnit ile birim testleri (Unit Tests)
 
 ---
 
 ## 🚀 Öne Çıkan Özellikler
 
-### 🔐 Kimlik Doğrulama & Yetkilendirme
-- ASP.NET Core **Identity** ile kullanıcı ve rol yönetimi.
-- Global **Authorize Filter Policy** ile sayfa bazlı güvenlik.
-- Yetkisiz veya hatalı URL erişimlerinde kullanıcı deneyimini artırmak amacıyla özel 404 hata sayfası entegre edildi.
-- **🔧 Service Extensions:** `Program.cs` dosyasındaki kod kalabalığını önlemek ve bağımlılık yönetimini (Dependency Injection) daha temiz bir yapıda sunmak amacıyla özel  **Extension Methods** yapısı kurgulandı.
+### 🛡️ Kalite Güvencesi & Güvenlik
+- **xUnit Unit Testing:** Ürün fiyat mantığı, AutoMapper eşleşmeleri ve Entity ilişkileri (Category-Product-Order) için kapsamlı test senaryoları kurgulandı.
+- **Global Exception Handling:** Özel yazılan **Middleware** ile uygulama genelindeki tüm hatalar merkezi olarak yakalanır; sistem çökmesi engellenerek kullanıcıya profesyonel JSON yanıtları dönülür.
+- **Serilog Logging:** Uygulamanın tüm hareketleri ve hata kayıtları dosya tabanlı olarak loglanır, izlenebilirlik maksimize edildi.
+- **Identity & Authorization:** ASP.NET Core Identity ile rol bazlı yetkilendirme ve global authorize filtreleri uygulandı.
+- **🔧 Service Extensions:** Bağımlılık yönetimi (DI) ve konfigürasyonlar özel Extension metodları ile temiz bir yapıda sunuldu.
 
 ### 🌍 Dünya Mutfağı Entegrasyonu
 - **RapidAPI (Tasty) Entegrasyonu:** Dış kaynaktan çekilen verilerle tarif videoları, görseller ve hazırlık sürelerini içeren geniş bir yemek listesi sunuldu.
 
 ### 🪑 Masa Seçimi & Akıllı Yönlendirme
-- **Durum Bazlı Görselleştirme:** Masaların anlık doluluk durumuna göre (Boş/Dolu) Yeşil/Kırmızı renk kodları ve özel ikonlarla (Sandalye/Kasa) dinamik gösterimi sağlandı.
-- **Akıllı İş Akışı:** - **Boş Masalar:** Müşteriyi doğrudan ürün seçim menüsüne yönlendirir.
+- **Durum Bazlı Görselleştirme:** Masaların anlık doluluk durumuna göre (Boş/Dolu) Yeşil/Kırmızı renk kodları ve özel ikonlarla dinamik gösterimi sağlandı.
+- **Akıllı İş Akışı:**
+    - **Boş Masalar:** Müşteriyi doğrudan ürün seçim menüsüne yönlendirir.
     - **Dolu Masalar:** Ödeme ve adisyon kontrolü için doğrudan sepet sayfasına yönlendirilir.
-- **Kullanıcı Deneyimi:** Breadcrumb yapısı ve Bootstrap bileşenleri ile optimize edilmiş masa seçim süreci tasarlandı.
 
 ### 🧾 Gelişmiş Sepet & Hesaplama Sistemi
 - **AJAX Destekli Sepet:** Sayfa yenilenmeden ürün ekleme ve çıkarma işlemleri.
-- **Yüksek Performanslı Hesaplama:** %10 KDV ve Genel Toplam hesaplamaları, performans odaklı döngü dışı mantıkla asenkron olarak yönetildi.
-- **Ürün Gruplama:** LINQ ve GroupBy kullanılarak aynı ürünlerin adet bazlı listelenmesi sağlandı.
+- **Yüksek Performanslı Hesaplama:** %10 KDV ve Genel Toplam hesaplamaları, performans odaklı asenkron mantıkla yönetildi.
 
 ### 📱 QR Kod Yönetimi
-- **QRCoder** ile dinamik QR kod oluşturma ve Base64 formatında indirme.
-- **ZXing.Net** ile görsel üzerinden QR kod çözümleme.
-- Masa ve menü entegrasyonu ile temassız sipariş altyapısı.
+- **QRCoder** ile dinamik QR kod oluşturma ve **ZXing.Net** ile QR kod çözümleme altyapısı.
 
 ### ⚡ SignalR – Gerçek Zamanlı İletişim
-- Anlık bildirim altyapısı ve masa durumlarının canlı takibi.
-- Dashboard üzerinde real-time veri güncellemeleri.
+- Anlık bildirim altyapısı, masa durumlarının canlı takibi ve Dashboard veri güncellemeleri.
 
-### 📧 Mail Servis Entegrasyonu 
-- **MailKit & MimeKit** ile profesyonel SMTP altyapısı.
-- **Summernote (Rich Text Editor)** entegrasyonu ile zengin içerikli mail gönderimi.
+### 📖 API Dokümantasyonu
+- **Swagger & XML Docs:** Her endpoint, parametre ve dönüş tipi Swagger üzerinde detaylıca dökümante edildi.
+- **Postman:** API testleri için organize edilmiş koleksiyonlar hazırlandı.
 
 ---
 
 ## 🛠 Kullanılan Teknolojiler
 
 - **Backend:** .NET 8, Web API, EF Core, Identity, SignalR, AutoMapper.
-- **Frontend:** ASP.NET Core MVC, AJAX, HTML5/CSS3, Bootstrap, JavaScript.
-- **Araçlar:** QRCoder, ZXing.Net, MailKit, MimeKit, Font Awesome.
+- **Testing:** xUnit, Moq, FluentAssertions.
+- **Logging & Monitoring:** Serilog.
+- **Frontend:** ASP.NET Core MVC, AJAX, Bootstrap, JavaScript.
+- **Araçlar:** QRCoder, ZXing.Net, MailKit, MimeKit.
 - **Veritabanı:** MS SQL Server.
 
 ---
@@ -69,9 +69,8 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 ## 🔐 Güvenlik & Yapılandırma
 
 - Global Authorization Policy.
-- Güçlü şifre politikaları ve Authentication middleware yapılandırması.
 - **HttpClient Factory:** Socket exhaustion riskini önlemek için merkezi HTTP yönetimi.
-- Service Extensions
+- Exception Middleware & Logging Pipeline.
 
 ---
 
