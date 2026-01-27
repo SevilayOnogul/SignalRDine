@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SignalRDine.WebUI.Dtos.BookingDtos;
+using SignalRDine.WebUI.Dtos.ContactDtos;
 using System.Text;
 
 namespace SignalRDine.WebUI.Controllers
@@ -27,8 +28,20 @@ namespace SignalRDine.WebUI.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult CreateBooking()
+        public async Task<IActionResult> CreateBooking()
         {
+            // Lokasyon verisini Contact API'sinden çekiyoruz
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7263/api/Contact");
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                // Veriyi liste olarak alıp ilk kaydın harita URL'sini ViewBag'e atıyoruz
+                var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+                ViewBag.location = values.Select(x => x.FooterDescription).FirstOrDefault();
+            }
+
             return View();
         }
         [HttpPost]

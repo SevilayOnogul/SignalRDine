@@ -21,15 +21,17 @@ namespace SignalRDine.WebUI.Controllers
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7263/api/Contact");
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultContactDto>>(jsonData);
+
+                // Veritabanındaki Location alanını ViewBag'e atıyoruz
                 var firstContact = values.FirstOrDefault();
                 if (firstContact != null)
                 {
                     ViewBag.location = firstContact.Location;
-
                 }
             }
 
