@@ -82,7 +82,7 @@
                 <nav class="breadcrumb bg-dark mb-30">
                     <a class="breadcrumb-item text-white" href="/Default/Index">Ana Sayfa</a>
                     <a class="breadcrumb-item text-white" href="/Menu/Index">Masa Listesi</a>
-                    <span class="breadcrumb-item active">Masa Seçimi Yapınız</span>
+                    <span class="breadcrumb-item active" style="color:orange">Masa Seçimi Yapınız</span>
                 </nav>
             </div>
         </div>
@@ -109,7 +109,7 @@
                         @if (item.Status == true)
                         {
                             <div class="widget-icon">
-                                <a href="/Baskets/Index/@item.MenuTableID"><i class="fa-solid fa-cash-register"></i></a>
+                                <a href="/Basket/Index/@item.MenuTableID"><i class="fa-solid fa-cash-register"></i></a>
                             </div>
 
                         }

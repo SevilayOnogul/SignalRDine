@@ -52,6 +52,10 @@ namespace SignalRDine.WebUI.Controllers
             var jsonData = JsonConvert.SerializeObject(createBasketDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
             var responseMessage = await client.PostAsync("https://localhost:7263/api/Basket", content);
+
+            var client2=_httpClientFactory.CreateClient();
+            await client2.GetAsync("https://localhost:7263/api/MenuTables/ChangeMenuTableStatusToTrue?id=" + menuTableId);
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

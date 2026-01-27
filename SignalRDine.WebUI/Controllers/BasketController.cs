@@ -16,7 +16,7 @@ namespace SignalRDine.WebUI.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            //TempData["id"] = id;
+            TempData["id"] = id;
 
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync($"https://localhost:7263/api/Basket/BasketListByMenuTableWithProductName?id={id}");
@@ -30,7 +30,7 @@ namespace SignalRDine.WebUI.Controllers
         }
         public async Task<IActionResult> DeleteBasket(int id)
         {
-            //id = int.Parse(TempData["id"].ToString());
+            id = int.Parse(TempData["id"].ToString());
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.DeleteAsync($"https://localhost:7263/api/Basket/{id}");
             if (responseMessage.IsSuccessStatusCode)

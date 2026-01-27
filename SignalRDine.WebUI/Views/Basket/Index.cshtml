@@ -2,11 +2,11 @@
 @{
     Layout = null;
     int count = 0;
-    // Hesaplamaları döngü dışında yapmak daha performanslıdır
-    decimal basketTotalPrice = Model.Sum(x => x.Price * x.Count);
-    decimal tax = basketTotalPrice / 100 * 10;
+
+    // Genel hesaplamalar döngü dışında bir kez yapılır
+    decimal basketTotalPrice = Model.Sum(x => x.Price);
+    decimal tax = basketTotalPrice * 0.10m;
     decimal basketTotalPriceWithTax = basketTotalPrice + tax;
-    decimal totalPriceWithCount = 0;
 }
 
 <!DOCTYPE html>
@@ -33,7 +33,7 @@
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8 table-responsive mb-5">
-                <table class="table table-light table-borderless table-hover text-center mb-0 shadow-sm rounded-3 overflow-hidden">
+                <table class="table table-light table-hover text-center mb-0 shadow-sm rounded-3">
                     <thead class="thead-dark">
                         <tr>
                             <th class="py-3">#</th>
@@ -45,26 +45,19 @@
                         </tr>
                     </thead>
                     <tbody class="align-middle">
-                        @foreach (var group in Model.GroupBy(x=>x.ProductName))
+                        @foreach (var group in Model.GroupBy(x => x.ProductName))
                         {
                             var item = group.First();
                             var itemCount = group.Count();
-
-                            basketTotalPrice = Model.Sum(x => x.Price);
-                            tax = basketTotalPrice / 100 * 10;
-                            basketTotalPriceWithTax = basketTotalPrice + tax;
+                            decimal itemTotalPrice = item.Price * itemCount; // Sadece o satırın toplamı
                             count++;
 
-                            totalPriceWithCount = item.Price * itemCount;
-
-@*                             decimal itemTotalPrice = item.Price * item.Count;
- *@
                             <tr class="border-bottom">
                                 <td class="py-3 fw-bold">@count</td>
                                 <td class="text-start ps-4">@item.ProductName</td>
                                 <td><span class="badge bg-secondary-subtle text-dark px-3 py-2">@itemCount</span></td>
                                 <td class="text-muted">@item.Price.ToString("0.00") ₺</td>
-                                <td class="fw-bold">@totalPriceWithCount.ToString("0.00") ₺</td>
+                                <td class="fw-bold">@itemTotalPrice.ToString("0.00") ₺</td>
                                 <td>
                                     <a href="/Basket/DeleteBasket/@item.BasketID" class="btn btn-sm btn-outline-danger rounded-circle">
                                         <i class="fa fa-times"></i>
@@ -77,17 +70,6 @@
             </div>
 
             <div class="col-lg-4">
-                <div class="card border-0 shadow-sm mb-4 rounded-3">
-                    <div class="card-body p-4">
-                        <form>
-                            <div class="input-group">
-                                <input type="text" id="couponcode" class="form-control border-secondary-subtle p-3 shadow-none" placeholder="Kupon Kodu" style="border-radius: 8px 0 0 8px;">
-                                <button type="button" class="btn btn-warning fw-bold px-4" id="btncouponcode" style="border-radius: 0 8px 8px 0;">Uygula</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
                 <h5 class="section-title position-relative text-uppercase mb-3">
                     <span class="bg-warning px-3 py-1 rounded-1 small fw-bold">Sipariş Özeti</span>
                 </h5>
@@ -95,18 +77,18 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between mb-3">
                             <span class="text-muted">Toplam Tutar</span>
-                            <span class="fw-semibold text-dark"><span id="totalprice">@basketTotalPrice.ToString("0.00")</span> ₺</span>
+                            <span class="fw-semibold text-dark">@basketTotalPrice.ToString("0.00") ₺</span>
                         </div>
                         <div class="d-flex justify-content-between mb-3">
                             <span class="text-muted">KDV Oranı (%10)</span>
-                            <span class="text-danger fw-medium">+ <span id="kdv">@tax.ToString("0.00")</span> ₺</span>
+                            <span class="text-danger fw-medium">+ @tax.ToString("0.00") ₺</span>
                         </div>
                         <hr class="my-4 border-secondary-subtle">
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h5 class="mb-0 fw-bold">Genel Toplam</h5>
-                            <h4 class="mb-0 text-warning fw-bold"><span id="totalpricewithkdv">@basketTotalPriceWithTax.ToString("0.00")</span> ₺</h4>
+                            <h4 class="mb-0 text-warning fw-bold">@basketTotalPriceWithTax.ToString("0.00") ₺</h4>
                         </div>
-                        <button id="btnchecked" class="btn btn-warning w-100 py-3 fw-bold shadow-sm rounded-3 text-uppercase">
+                        <button class="btn btn-warning w-100 py-3 fw-bold shadow-sm rounded-3 text-uppercase">
                             Siparişi Tamamla
                         </button>
                     </div>
