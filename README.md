@@ -26,6 +26,7 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - ASP.NET Core **Identity** ile kullanıcı ve rol yönetimi.
 - Global **Authorize Filter Policy** ile sayfa bazlı güvenlik.
 - Yetkisiz veya hatalı URL erişimlerinde kullanıcı deneyimini artırmak amacıyla özel 404 hata sayfası entegre edildi.
+- **🔧 Service Extensions:** `Program.cs` dosyasındaki kod kalabalığını önlemek ve bağımlılık yönetimini (Dependency Injection) daha temiz bir yapıda sunmak amacıyla özel  **Extension Methods** yapısı kurgulandı.
 
 ### 🌍 Dünya Mutfağı Entegrasyonu
 - **RapidAPI (Tasty) Entegrasyonu:** Dış kaynaktan çekilen verilerle tarif videoları, görseller ve hazırlık sürelerini içeren geniş bir yemek listesi sunuldu.
@@ -70,6 +71,7 @@ Proje; **gerçek bir restoran senaryosu** baz alınarak masa yönetimi, sipariş
 - Global Authorization Policy.
 - Güçlü şifre politikaları ve Authentication middleware yapılandırması.
 - **HttpClient Factory:** Socket exhaustion riskini önlemek için merkezi HTTP yönetimi.
+- Service Extensions
 
 ---
 
