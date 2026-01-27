@@ -7,19 +7,17 @@ namespace SignalRDine.WebUI.Controllers
     public class CustomerTableController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        public CustomerTableController(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
-        public CustomerTableController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
 
         public async Task<IActionResult> CustomerTableList()
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMEssage = await client.GetAsync("https://localhost:7263/api/MenuTables");
-            if(responseMEssage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync("MenuTables"); // URL temizlendi
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData=await responseMEssage.Content.ReadAsStringAsync();
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(jsonData);
                 return View(values);
             }

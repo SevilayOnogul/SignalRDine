@@ -20,14 +20,19 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Tüm ürünleri listeler.
+        /// </summary>
         [HttpGet]
         public IActionResult ProductList()
         {
-            var values = _mapper.Map<List<ResultProductDto>>(_productService.TGetListAll());
+            var values = _productService.TGetListAll();
             return Ok(_mapper.Map<List<ResultProductDto>>(values));
         }
 
-
+        /// <summary>
+        /// Yeni bir ürün oluşturur.
+        /// </summary>
         [HttpPost]
         public IActionResult CreateProduct(CreateProductDto createProductDto)
         {
@@ -36,6 +41,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Ürün Başarıyla Eklendi");
         }
 
+        /// <summary>
+        /// ID değerine göre ürünü siler.
+        /// </summary>
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {
@@ -44,6 +52,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Ürün Başarıyla Silindi");
         }
 
+        /// <summary>
+        /// ID değerine göre ürün bilgilerini getirir.
+        /// </summary>
         [HttpGet("{id}")]
         public IActionResult GetProduct(int id)
         {
@@ -51,6 +62,9 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<GetProductDto>(value));
         }
 
+        /// <summary>
+        /// Ürün bilgilerini günceller.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateProduct(UpdateProductDto updateProductDto)
         {
@@ -59,81 +73,119 @@ namespace SignalRDine.Api.Controllers
             return Ok("Ürün Başarıyla Güncellendi");
         }
 
+        /// <summary>
+        /// Ürünleri bağlı oldukları kategori bilgileriyle birlikte listeler.
+        /// </summary>
         [HttpGet("ProductListWithCategory")]
         public IActionResult ProductListWithCategory()
         {
-            var values=_productService.TGetProductsWithCategories();
+            var values = _productService.TGetProductsWithCategories();
             return Ok(_mapper.Map<List<ResultProductWithCategoryDto>>(values));
-
         }
 
-		[HttpGet("ProductCount")]
-		public IActionResult ProductCount()
-		{
-			return Ok(_productService.TProductCount());
-		}
+        /// <summary>
+        /// Toplam ürün sayısını döner.
+        /// </summary>
+        [HttpGet("ProductCount")]
+        public IActionResult ProductCount()
+        {
+            return Ok(_productService.TProductCount());
+        }
 
-		[HttpGet("ProductCountByDrink")]
-		public IActionResult ProductCountByDrink()
-		{
-			return Ok(_productService.TProductCountByCategoryNameDrink());
-		}
+        /// <summary>
+        /// İçecek kategorisindeki ürün sayısını döner.
+        /// </summary>
+        [HttpGet("ProductCountByDrink")]
+        public IActionResult ProductCountByDrink()
+        {
+            return Ok(_productService.TProductCountByCategoryNameDrink());
+        }
 
-		[HttpGet("ProductCountByHamburger")]
-		public IActionResult ProductCountByHamburger()
-		{
-			return Ok(_productService.TProductCountByCategoryNameHamburger());
-		}
-        
+        /// <summary>
+        /// Hamburger kategorisindeki ürün sayısını döner.
+        /// </summary>
+        [HttpGet("ProductCountByHamburger")]
+        public IActionResult ProductCountByHamburger()
+        {
+            return Ok(_productService.TProductCountByCategoryNameHamburger());
+        }
+
+        /// <summary>
+        /// Tüm ürünlerin ortalama fiyatını döner.
+        /// </summary>
         [HttpGet("ProductPriceAvg")]
-		public IActionResult ProductPriceAvg()
-		{
-			return Ok(_productService.TProductPriceAvg());
-		}
+        public IActionResult ProductPriceAvg()
+        {
+            return Ok(_productService.TProductPriceAvg());
+        }
 
-		[HttpGet("ProductNameByMinPrice")]
-		public IActionResult ProductNameByMinPrice()
-		{
-			return Ok(_productService.TProductNameByMinPrice());
-		}
+        /// <summary>
+        /// En ucuz ürünün adını döner.
+        /// </summary>
+        [HttpGet("ProductNameByMinPrice")]
+        public IActionResult ProductNameByMinPrice()
+        {
+            return Ok(_productService.TProductNameByMinPrice());
+        }
 
-		[HttpGet("ProductNameByMaxPrice")]
-		public IActionResult ProductNameByMaxPrice()
-		{
-			return Ok(_productService.TProductNameByMaxPrice());
-		} 
-        
+        /// <summary>
+        /// En pahalı ürünün adını döner.
+        /// </summary>
+        [HttpGet("ProductNameByMaxPrice")]
+        public IActionResult ProductNameByMaxPrice()
+        {
+            return Ok(_productService.TProductNameByMaxPrice());
+        }
+
+        /// <summary>
+        /// Hamburger kategorisindeki ürünlerin ortalama fiyatını döner.
+        /// </summary>
         [HttpGet("ProductAvgPriceByHamburger")]
-		public IActionResult ProductAvgPriceByHamburger()
-		{
-			return Ok(_productService.TProductAvgPriceByHamburger());
-		}
-        
-        [HttpGet("ProductPriceBySteakBurger")]
-		public IActionResult ProductPriceBySteakBurger()
-		{
-			return Ok(_productService.TProductPriceBySteakBurger());
-		}
-        
-        [HttpGet("TotalPriceByDrinkCategory")]
-		public IActionResult TotalPriceByDrinkCategory()
-		{
-			return Ok(_productService.TTotalPriceByDrinkCategory());
-		}
+        public IActionResult ProductAvgPriceByHamburger()
+        {
+            return Ok(_productService.TProductAvgPriceByHamburger());
+        }
 
+        /// <summary>
+        /// Steak Burger ürününün fiyatını döner.
+        /// </summary>
+        [HttpGet("ProductPriceBySteakBurger")]
+        public IActionResult ProductPriceBySteakBurger()
+        {
+            return Ok(_productService.TProductPriceBySteakBurger());
+        }
+
+        /// <summary>
+        /// İçecek kategorisindeki ürünlerin toplam fiyatını döner.
+        /// </summary>
+        [HttpGet("TotalPriceByDrinkCategory")]
+        public IActionResult TotalPriceByDrinkCategory()
+        {
+            return Ok(_productService.TTotalPriceByDrinkCategory());
+        }
+
+        /// <summary>
+        /// Salata kategorisindeki ürünlerin toplam fiyatını döner.
+        /// </summary>
         [HttpGet("TotalPriceBySaladCategory")]
         public IActionResult TotalPriceBySaladCategory()
         {
             return Ok(_productService.TTotalPriceBySaladCategory());
         }
 
+        /// <summary>
+        /// Eklenen son 9 ürünü listeler (Ön yüz vitrini için).
+        /// </summary>
         [HttpGet("GetLast9Products")]
         public IActionResult GetLast9Products()
         {
             var value = _productService.TGetLast9Products();
             return Ok(value);
-        } 
-        
+        }
+
+        /// <summary>
+        /// Tüm ürünlerin stoktaki/listedeki toplam değerini döner.
+        /// </summary>
         [HttpGet("TotalProductPrice")]
         public IActionResult TotalProductPrice()
         {
@@ -141,6 +193,9 @@ namespace SignalRDine.Api.Controllers
             return Ok(value);
         }
 
+        /// <summary>
+        /// Ürün çeşidi sayısını döner.
+        /// </summary>
         [HttpGet("GetProductCount")]
         public IActionResult GetProductCount()
         {

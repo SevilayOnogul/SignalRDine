@@ -4,9 +4,7 @@ namespace SignalRDine.WebUI.Controllers
 {
     public class UILayoutController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index()=>View();
+    
     }
 }

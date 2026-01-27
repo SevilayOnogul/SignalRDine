@@ -20,13 +20,21 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Tüm mesajları listeler.
+        /// </summary>
+        /// <returns>Mesaj listesi döner.</returns>
         [HttpGet]
         public IActionResult MessageList()
         {
-            var values=_messageService.TGetListAll();
+            var values = _messageService.TGetListAll();
             return Ok(_mapper.Map<List<ResultMessageDto>>(values));
         }
 
+        /// <summary>
+        /// Yeni bir mesaj oluşturur.
+        /// </summary>
+        /// <param name="createMessageDto">Mesaj bilgileri</param>
         [HttpPost]
         public IActionResult CreateMessage(CreateMessageDto createMessageDto)
         {
@@ -35,31 +43,39 @@ namespace SignalRDine.Api.Controllers
             return Ok("Mesaj Başarılı Şekilde Eklendi");
         }
 
+        /// <summary>
+        /// Belirtilen ID'ye sahip mesajı siler.
+        /// </summary>
+        /// <param name="id">Mesaj ID</param>
         [HttpDelete("{id}")]
         public IActionResult DeleteMessage(int id)
         {
             var value = _messageService.TGetByID(id);
             _messageService.TDelete(value);
             return Ok("Mesaj Silindi");
-        
         }
 
+        /// <summary>
+        /// Mesaj içeriğini günceller.
+        /// </summary>
+        /// <param name="updateMessageDto">Güncellenecek mesaj verileri</param>
         [HttpPut]
         public IActionResult UpdateMessage(UpdateMessageDto updateMessageDto)
         {
-            var value=_mapper.Map<Message>(updateMessageDto);
+            var value = _mapper.Map<Message>(updateMessageDto);
             _messageService.TUpdate(value);
             return Ok("Mesajınız Güncellendi");
         }
 
+        /// <summary>
+        /// ID değerine göre ilgili mesajı getirir.
+        /// </summary>
+        /// <param name="id">Mesaj ID</param>
         [HttpGet("{id}")]
         public IActionResult GetMessage(int id)
         {
             var value = _messageService.TGetByID(id);
             return Ok(_mapper.Map<GetByIdMessageDto>(value));
         }
-
-
-
     }
 }

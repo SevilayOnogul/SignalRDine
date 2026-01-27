@@ -8,98 +8,72 @@ namespace SignalRDine.WebUI.Controllers
     public class TestimonialController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        public TestimonialController(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
-        public TestimonialController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
 
         public async Task<IActionResult> Index()
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/Testimonial");
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var response = await client.GetAsync("Testimonial");
+            if (response.IsSuccessStatusCode)
             {
-                var jsonData=await responseMessage.Content.ReadAsStringAsync();
-                var values=JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultTestimonialDto>>(await response.Content.ReadAsStringAsync());
                 return View(values);
-
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult CreateTestimonial()
-        {
-            return View();
-        }
+        public IActionResult CreateTestimonial() => View();
+
         [HttpPost]
-        public async Task<IActionResult>CreateTestimonial(CreateTestimonialDto createTestimonialDto)
+        public async Task<IActionResult> CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
-            var client=_httpClientFactory.CreateClient();
-            var jsonData=JsonConvert.SerializeObject(createTestimonialDto);
-            StringContent content = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7263/api/Testimonial",content);
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var client = CreateClient();
+            var content = new StringContent(JsonConvert.SerializeObject(createTestimonialDto), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("Testimonial", content);
+            if (response.IsSuccessStatusCode) return RedirectToAction("Index");
             return View();
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult>DeleteTestimonial(int id)
+        public async Task<IActionResult> DeleteTestimonial(int id)
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7263/api/Testimonial/{id}");
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var response = await CreateClient().DeleteAsync($"Testimonial/{id}");
+            if (response.IsSuccessStatusCode) return RedirectToAction("Index");
             return View();
         }
 
         [HttpGet]
-        public async Task<IActionResult>UpdateTestimonial(int id)
+        public async Task<IActionResult> UpdateTestimonial(int id)
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7263/api/Testimonial/{id}");
-            if(responseMessage.IsSuccessStatusCode )
+            var response = await CreateClient().GetAsync($"Testimonial/{id}");
+            if (response.IsSuccessStatusCode)
             {
-                var jsonData=await responseMessage.Content.ReadAsStringAsync();
-                var value=JsonConvert.DeserializeObject<UpdateTestimonialDto>(jsonData);
+                var value = JsonConvert.DeserializeObject<UpdateTestimonialDto>(await response.Content.ReadAsStringAsync());
                 return View(value);
             }
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult>UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
+        public async Task<IActionResult> UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
-            var client=_httpClientFactory.CreateClient();
-            var jsonData=JsonConvert.SerializeObject(updateTestimonialDto);
-            StringContent content = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMEssage = await client.PutAsync("https://localhost:7263/api/Testimonial", content);
-            if(responseMEssage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var content = new StringContent(JsonConvert.SerializeObject(updateTestimonialDto), Encoding.UTF8, "application/json");
+            var response = await CreateClient().PutAsync("Testimonial", content);
+            if (response.IsSuccessStatusCode) return RedirectToAction("Index");
             return View();
-
         }
 
         public async Task<IActionResult> ChangeStatusTrue(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-            await client.GetAsync($"https://localhost:7263/api/Testimonial/ChangeStatusTrue/{id}");
+            await CreateClient().GetAsync($"Testimonial/ChangeStatusTrue/{id}");
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> ChangeStatusFalse(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-            await client.GetAsync($"https://localhost:7263/api/Testimonial/ChangeStatusFalse/{id}");
+            await CreateClient().GetAsync($"Testimonial/ChangeStatusFalse/{id}");
             return RedirectToAction("Index");
         }
     }

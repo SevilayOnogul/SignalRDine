@@ -21,6 +21,9 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Ana sayfadaki tüm slider (öne çıkan alan) içeriklerini listeler.
+        /// </summary>
         [HttpGet]
         public IActionResult SliderList()
         {
@@ -28,6 +31,10 @@ namespace SignalRDine.Api.Controllers
             return Ok(values);
         }
 
+        /// <summary>
+        /// Yeni bir slider içeriği oluşturur.
+        /// </summary>
+        /// <param name="createSliderDto">Eklenecek slider bilgileri</param>
         [HttpPost]
         public IActionResult CreateSlider(CreateSliderDto createSliderDto)
         {
@@ -36,6 +43,10 @@ namespace SignalRDine.Api.Controllers
             return Ok("Öne Çıkan Alan Bilgisi Eklendi");
         }
 
+        /// <summary>
+        /// Belirtilen ID'ye sahip slider içeriğini siler.
+        /// </summary>
+        /// <param name="id">Silinecek slider ID</param>
         [HttpDelete("{id}")]
         public IActionResult DeleteSlider(int id)
         {
@@ -44,6 +55,10 @@ namespace SignalRDine.Api.Controllers
             return Ok("Öne Çıkan Alan Bilgisi Silindi");
         }
 
+        /// <summary>
+        /// ID değerine göre ilgili slider bilgisini getirir.
+        /// </summary>
+        /// <param name="id">Slider ID</param>
         [HttpGet("{id}")]
         public IActionResult GetSlider(int id)
         {
@@ -51,6 +66,10 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<GetByIdSliderDto>(value));
         }
 
+        /// <summary>
+        /// Mevcut bir slider içeriğini günceller.
+        /// </summary>
+        /// <param name="updateSliderDto">Güncellenecek slider verileri</param>
         [HttpPut]
         public IActionResult UpdateSlider(UpdateSliderDto updateSliderDto)
         {

@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.Api", "SignalRDine.Api\SignalRDine.Api.csproj", "{71EBE9BD-A329-4439-8106-C833B707AC36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDine.Api", "SignalRDine.Api\SignalRDine.Api.csproj", "{71EBE9BD-A329-4439-8106-C833B707AC36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.WebUI", "SignalRDine.WebUI\SignalRDine.WebUI.csproj", "{5ECA35FA-0C40-4AF8-8C64-AB97B4C617EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDine.WebUI", "SignalRDine.WebUI\SignalRDine.WebUI.csproj", "{5ECA35FA-0C40-4AF8-8C64-AB97B4C617EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.EntityLayer", "SignalRDine.EntityLayer\SignalRDine.EntityLayer.csproj", "{7E85748D-F774-4FF2-A656-A853AA4C0F6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDine.EntityLayer", "SignalRDine.EntityLayer\SignalRDine.EntityLayer.csproj", "{7E85748D-F774-4FF2-A656-A853AA4C0F6D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.DataAccessLayer", "SignalRDine.DataAccessLayer\SignalRDine.DataAccessLayer.csproj", "{B5B20C87-C25A-4771-BC33-44CF2DCC5A61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDine.DataAccessLayer", "SignalRDine.DataAccessLayer\SignalRDine.DataAccessLayer.csproj", "{B5B20C87-C25A-4771-BC33-44CF2DCC5A61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.BusinessLayer", "SignalRDine.BusinessLayer\SignalRDine.BusinessLayer.csproj", "{C76A5D46-8A58-4731-95F5-C1D270147A33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDine.BusinessLayer", "SignalRDine.BusinessLayer\SignalRDine.BusinessLayer.csproj", "{C76A5D46-8A58-4731-95F5-C1D270147A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.DtoLayer", "SignalRDine.DtoLayer\SignalRDine.DtoLayer.csproj", "{2D3FE7AC-1E9A-4C80-8298-07714A4A12B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRDine.DtoLayer", "SignalRDine.DtoLayer\SignalRDine.DtoLayer.csproj", "{2D3FE7AC-1E9A-4C80-8298-07714A4A12B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRDine.Test", "SignalRDine.Test\SignalRDine.Test.csproj", "{92176C8D-510A-47CB-A51B-8292D40F23B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{2D3FE7AC-1E9A-4C80-8298-07714A4A12B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D3FE7AC-1E9A-4C80-8298-07714A4A12B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D3FE7AC-1E9A-4C80-8298-07714A4A12B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92176C8D-510A-47CB-A51B-8292D40F23B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92176C8D-510A-47CB-A51B-8292D40F23B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92176C8D-510A-47CB-A51B-8292D40F23B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92176C8D-510A-47CB-A51B-8292D40F23B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

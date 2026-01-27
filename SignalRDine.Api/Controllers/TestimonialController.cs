@@ -20,6 +20,9 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Tüm müşteri yorumlarını listeler.
+        /// </summary>
         [HttpGet]
         public IActionResult TestimonialList()
         {
@@ -27,6 +30,9 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<List<ResultTestimonialDto>>(values));
         }
 
+        /// <summary>
+        /// Yeni bir müşteri yorumu ekler.
+        /// </summary>
         [HttpPost]
         public IActionResult CreateTestimonial(CreateTestimonialDto createTestimonialDto)
         {
@@ -35,6 +41,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Müşteri Yorumu Başarıyla Eklendi");
         }
 
+        /// <summary>
+        /// Belirtilen ID'ye sahip müşteri yorumunu siler.
+        /// </summary>
         [HttpDelete("{id}")]
         public IActionResult DeleteTestimonial(int id)
         {
@@ -43,6 +52,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Müşteri Yorumu Başarıyla Silindi");
         }
 
+        /// <summary>
+        /// ID değerine göre müşteri yorumunu getirir.
+        /// </summary>
         [HttpGet("{id}")]
         public IActionResult GetTestimonial(int id)
         {
@@ -50,6 +62,9 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<GetTestimonialDto>(value));
         }
 
+        /// <summary>
+        /// Müşteri yorumunu günceller.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateTestimonial(UpdateTestimonialDto updateTestimonialDto)
         {
@@ -57,6 +72,10 @@ namespace SignalRDine.Api.Controllers
             _testimonialService.TUpdate(value);
             return Ok("Müşteri Yorumu Başarıyla Güncellendi");
         }
+
+        /// <summary>
+        /// Sadece aktif olan (Status: True) müşteri yorumlarını listeler.
+        /// </summary>
         [HttpGet("GetActiveTestimonials")]
         public IActionResult GetActiveTestimonials()
         {
@@ -64,6 +83,9 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<List<ResultTestimonialDto>>(values));
         }
 
+        /// <summary>
+        /// Müşteri yorumunu aktif hale getirir.
+        /// </summary>
         [HttpGet("ChangeStatusTrue/{id}")]
         public IActionResult ChangeStatusTrue(int id)
         {
@@ -72,16 +94,17 @@ namespace SignalRDine.Api.Controllers
             _testimonialService.TUpdate(value);
             return Ok("Referans Durumu Aktif Yapıldı");
         }
+
+        /// <summary>
+        /// Müşteri yorumunu pasif hale getirir.
+        /// </summary>
         [HttpGet("ChangeStatusFalse/{id}")]
         public IActionResult ChangeStatusFalse(int id)
-
         {
             var value = _testimonialService.TGetByID(id);
             value.Status = false;
             _testimonialService.TUpdate(value);
             return Ok("Referans Durumu Pasif Yapıldı");
         }
-
-
     }
 }

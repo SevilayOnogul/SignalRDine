@@ -4,9 +4,6 @@ namespace SignalRDine.WebUI.Controllers
 {
     public class StatisticController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
     }
 }

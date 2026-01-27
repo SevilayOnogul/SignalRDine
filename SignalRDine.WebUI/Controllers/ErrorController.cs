@@ -4,9 +4,6 @@ namespace SignalRDine.WebUI.Controllers
 {
     public class ErrorController : Controller
     {
-        public IActionResult NotFound404Page()
-        {
-            return View();
-        }
+        public IActionResult NotFound404Page()=>View();
     }
 }

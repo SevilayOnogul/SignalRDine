@@ -20,6 +20,10 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Tüm indirim tekliflerini listeler.
+        /// </summary>
+        /// <returns>İndirim bilgilerinden oluşan bir liste döner.</returns>
         [HttpGet]
         public IActionResult DiscountList()
         {
@@ -27,15 +31,23 @@ namespace SignalRDine.Api.Controllers
             return Ok(value);
         }
 
+        /// <summary>
+        /// Yeni bir indirim teklifi oluşturur. Varsayılan durum 'Pasif' (false) olarak ayarlanır.
+        /// </summary>
+        /// <param name="createDiscountDto">Eklenecek indirim bilgileri</param>
         [HttpPost]
         public IActionResult CreateDiscount(CreateDiscountDto createDiscountDto)
         {
-            var value=_mapper.Map<Discount>(createDiscountDto);
+            var value = _mapper.Map<Discount>(createDiscountDto);
             value.Status = false;
             _discountService.TAdd(value);
             return Ok("İndirim Bilgisi Eklendi");
         }
 
+        /// <summary>
+        /// Belirtilen ID'ye sahip indirim teklifini siler.
+        /// </summary>
+        /// <param name="id">İndirim ID</param>
         [HttpDelete("{id}")]
         public IActionResult DeleteDiscount(int id)
         {
@@ -44,6 +56,10 @@ namespace SignalRDine.Api.Controllers
             return Ok("İndirim Bilgisi Silindi");
         }
 
+        /// <summary>
+        /// ID değerine göre ilgili indirim teklifini getirir.
+        /// </summary>
+        /// <param name="id">İndirim ID</param>
         [HttpGet("{id}")]
         public IActionResult GetDiscount(int id)
         {
@@ -51,23 +67,34 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<GetDiscountDto>(value));
         }
 
+        /// <summary>
+        /// Mevcut bir indirim teklifini günceller.
+        /// </summary>
+        /// <param name="updateDiscountDto">Güncellenecek indirim verileri</param>
         [HttpPut]
         public IActionResult UpdateDiscount(UpdateDiscountDto updateDiscountDto)
         {
             var value = _mapper.Map<Discount>(updateDiscountDto);
-            value.Status=false;
+            value.Status = false;
             _discountService.TUpdate(value);
             return Ok("İndirim Bilgisi Güncellendi");
         }
 
+        /// <summary>
+        /// İndirim teklifini aktif hale getirir.
+        /// </summary>
+        /// <param name="id">İndirim ID</param>
         [HttpGet("ChangeStatusToTrue/{id}")]
         public IActionResult ChangeStatusToTrue(int id)
         {
             _discountService.TChangeStatusToTrue(id);
             return Ok("Ürün İndirimi Aktif Hale Getirildi");
-
         }
 
+        /// <summary>
+        /// İndirim teklifini pasif hale getirir.
+        /// </summary>
+        /// <param name="id">İndirim ID</param>
         [HttpGet("ChangeStatusToFalse/{id}")]
         public IActionResult ChangeStatusToFalse(int id)
         {
@@ -75,13 +102,15 @@ namespace SignalRDine.Api.Controllers
             return Ok("Ürün İndirimi Pasif Hale Getirildi");
         }
 
+        /// <summary>
+        /// Sadece aktif durumda olan indirim tekliflerini listeler.
+        /// </summary>
+        /// <returns>Aktif indirim listesi döner.</returns>
         [HttpGet("GetListByStatusTrue")]
         public IActionResult GetListByStatusTrue()
         {
-            var values=_discountService.TGetListByStatusTrue();
+            var values = _discountService.TGetListByStatusTrue();
             return Ok(_mapper.Map<List<ResultDiscountDto>>(values));
-
         }
-
     }
 }

@@ -8,23 +8,21 @@ namespace SignalRDine.WebUI.Controllers
     public class QRCodeController : Controller
     {
         [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
+
         [HttpPost]
         public IActionResult Index(string value)
         {
-            using(MemoryStream memoryStream = new MemoryStream())
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 QRCodeGenerator createQRCode = new QRCodeGenerator();
                 QRCodeGenerator.QRCode squareCode = createQRCode.CreateQrCode(value, QRCodeGenerator.ECCLevel.Q);
+
                 using (Bitmap image = squareCode.GetGraphic(10))
                 {
-                    image.Save(memoryStream,ImageFormat.Png);
-                    ViewBag.QRCodeImage="data:image/png;base64,"+Convert.ToBase64String(memoryStream.ToArray());
+                    image.Save(memoryStream, ImageFormat.Png);
+                    ViewBag.QRCodeImage = "data:image/png;base64," + Convert.ToBase64String(memoryStream.ToArray());
                 }
-
             }
             return View();
         }
@@ -36,14 +34,13 @@ namespace SignalRDine.WebUI.Controllers
 
             using (var stream = file.OpenReadStream())
             {
-                var bitmap = (Bitmap)Image.FromStream(stream);
-                var reader = new ZXing.Windows.Compatibility.BarcodeReader();
-                var result = reader.Decode(bitmap);
+                using (var bitmap = (Bitmap)Image.FromStream(stream))
+                {
+                    var reader = new ZXing.Windows.Compatibility.BarcodeReader();
+                    var result = reader.Decode(bitmap);
 
-                if (result != null)
-                    ViewBag.DecodedValue = result.Text; // QR içindeki metin
-                else
-                    ViewBag.DecodedValue = "QR Kod çözülemedi.";
+                    ViewBag.DecodedValue = result != null ? result.Text : "QR Kod çözülemedi.";
+                }
             }
             return View("Index");
         }

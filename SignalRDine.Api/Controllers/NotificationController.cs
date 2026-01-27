@@ -12,7 +12,7 @@ namespace SignalRDine.Api.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly INotificationService _notificationService;
-        private readonly IMapper _mapper; 
+        private readonly IMapper _mapper;
 
         public NotificationController(INotificationService notificationService, IMapper mapper)
         {
@@ -20,6 +20,9 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Tüm bildirimleri listeler.
+        /// </summary>
         [HttpGet]
         public IActionResult NotificationList()
         {
@@ -27,18 +30,27 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<List<ResultNotificationDto>>(values));
         }
 
+        /// <summary>
+        /// Okunmamış (Status: False) bildirim sayısını döner.
+        /// </summary>
         [HttpGet("NotificationCountByStatusFalse")]
         public IActionResult NotificationCountByStatusFalse()
         {
             return Ok(_notificationService.TNotificationCountByStatusFalse());
         }
 
+        /// <summary>
+        /// Okunmamış (Status: False) tüm bildirimleri getirir.
+        /// </summary>
         [HttpGet("GetAllNotificationByFalse")]
         public IActionResult GetAllNotificationByFalse()
         {
             return Ok(_notificationService.TGetAllNotificationByFalse());
         }
 
+        /// <summary>
+        /// Yeni bir bildirim oluşturur. Varsayılan durum 'Okunmadı' (false) ve tarih 'Şu an' olarak ayarlanır.
+        /// </summary>
         [HttpPost]
         public IActionResult CreateNotification(CreateNotificationDto createNotificationDto)
         {
@@ -50,7 +62,10 @@ namespace SignalRDine.Api.Controllers
             return Ok("Ekleme işlemi başarıyla yapıldı");
         }
 
-        [HttpDelete("{id}")] 
+        /// <summary>
+        /// ID değerine göre bildirimi siler.
+        /// </summary>
+        [HttpDelete("{id}")]
         public IActionResult DeleteNotification(int id)
         {
             var value = _notificationService.TGetByID(id);
@@ -58,6 +73,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Bildirim Silindi");
         }
 
+        /// <summary>
+        /// ID değerine göre ilgili bildirimi getirir.
+        /// </summary>
         [HttpGet("{id}")]
         public IActionResult GetNotification(int id)
         {
@@ -65,6 +83,9 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<GetByIdNotificationDto>(value));
         }
 
+        /// <summary>
+        /// Bildirim içeriğini günceller.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateNotification(UpdateNotificationDto updateNotificationDto)
         {
@@ -74,6 +95,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Güncelleme işlemi başarıyla yapıldı");
         }
 
+        /// <summary>
+        /// Bildirim durumunu 'Okunmadı' (false) olarak günceller.
+        /// </summary>
         [HttpGet("NotificationStatusChangeToFalse/{id}")]
         public IActionResult NotificationStatusChangeToFalse(int id)
         {
@@ -81,6 +105,9 @@ namespace SignalRDine.Api.Controllers
             return Ok("Güncelleme yapıldı");
         }
 
+        /// <summary>
+        /// Bildirim durumunu 'Okundu' (true) olarak günceller.
+        /// </summary>
         [HttpGet("NotificationStatusChangeToTrue/{id}")]
         public IActionResult NotificationStatusChangeToTrue(int id)
         {

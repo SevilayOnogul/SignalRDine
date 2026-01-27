@@ -20,6 +20,9 @@ namespace SignalRDine.Api.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Tüm sosyal medya hesap bilgilerini listeler.
+        /// </summary>
         [HttpGet]
         public IActionResult SocialMediaList()
         {
@@ -27,6 +30,10 @@ namespace SignalRDine.Api.Controllers
             return Ok(values);
         }
 
+        /// <summary>
+        /// Yeni bir sosyal medya hesap bilgisi ekler.
+        /// </summary>
+        /// <param name="createSocialMediaDto">Eklenecek sosyal medya bilgileri</param>
         [HttpPost]
         public IActionResult CreateSocialMedia(CreateSocialMediaDto createSocialMediaDto)
         {
@@ -35,6 +42,10 @@ namespace SignalRDine.Api.Controllers
             return Ok("Sosyal Medya Bilgisi Eklendi");
         }
 
+        /// <summary>
+        /// Belirtilen ID'ye sahip sosyal medya bilgisini siler.
+        /// </summary>
+        /// <param name="id">Sosyal Medya ID</param>
         [HttpDelete("{id}")]
         public IActionResult DeleteSocialMedia(int id)
         {
@@ -43,6 +54,10 @@ namespace SignalRDine.Api.Controllers
             return Ok("Sosyal Medya Bilgisi Silindi");
         }
 
+        /// <summary>
+        /// ID değerine göre ilgili sosyal medya bilgisini getirir.
+        /// </summary>
+        /// <param name="id">Sosyal Medya ID</param>
         [HttpGet("{id}")]
         public IActionResult GetSocialMedia(int id)
         {
@@ -50,6 +65,10 @@ namespace SignalRDine.Api.Controllers
             return Ok(_mapper.Map<GetSocialMediaDto>(value));
         }
 
+        /// <summary>
+        /// Sosyal medya hesap bilgilerini günceller.
+        /// </summary>
+        /// <param name="updateSocialMediaDto">Güncellenecek sosyal medya verileri</param>
         [HttpPut]
         public IActionResult UpdateSocialMedia(UpdateSocialMediaDto updateSocialMediaDto)
         {

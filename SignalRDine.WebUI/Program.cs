@@ -29,6 +29,9 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = true;
 });
 
+
+
+
 // Cookie Ayarlarý
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -41,6 +44,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+});
+
+builder.Services.AddHttpClient("SignalRClient", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7263/api/");
 });
 
 builder.Services.AddFluentValidationAutoValidation(config =>

@@ -14,45 +14,44 @@ namespace SignalRDine.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        // Program.cs'deki ismiyle client çağırıyoruz
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
+
         public async Task<IActionResult> Index()
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/About");
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync("About"); // BaseAddress olduğu için sadece endpoint yeterli
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData=await responseMessage.Content.ReadAsStringAsync();
-                var values=JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);   
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult CreateAbout()
-        {
-            return View();
-        }
+        public IActionResult CreateAbout() => View();
+
         [HttpPost]
-        public async Task<IActionResult>CreateAbout(CreateAboutDto createAboutDto)
+        public async Task<IActionResult> CreateAbout(CreateAboutDto createAboutDto)
         {
-            var client=_httpClientFactory.CreateClient();
-            var jsonData=JsonConvert.SerializeObject(createAboutDto);
-            StringContent stringContent = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7263/api/About", stringContent);
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createAboutDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("About", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
             return View();
-
         }
 
-        [HttpGet]
-        public async Task<IActionResult>DeleteAbout(int id)
+        public async Task<IActionResult> DeleteAbout(int id)
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7263/api/About/{id}");
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var responseMessage = await client.DeleteAsync($"About/{id}");
+            if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
@@ -60,27 +59,27 @@ namespace SignalRDine.WebUI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult>UpdateAbout(int id)
+        public async Task<IActionResult> UpdateAbout(int id)
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7263/api/About/{id}");
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync($"About/{id}");
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData=await responseMessage.Content.ReadAsStringAsync();
-                var values=JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
                 return View(values);
             }
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult>UpdateAbout(UpdateAboutDto updateAboutDto)
+        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAboutDto)
         {
-            var client=_httpClientFactory.CreateClient();
-            var jsonData=JsonConvert.SerializeObject(updateAboutDto);
-            StringContent content = new StringContent(jsonData,Encoding.UTF8,"application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7263/api/About", content);
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateAboutDto);
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("About", content);
+            if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }

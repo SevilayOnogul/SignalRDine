@@ -14,12 +14,16 @@ namespace SignalRDine.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
+        // Program.cs'deki merkezi ayarı kullanan yardımcı metot
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
+
         public async Task<IActionResult> Index(int id)
         {
             TempData["id"] = id;
+            var client = CreateClient();
 
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7263/api/Basket/BasketListByMenuTableWithProductName?id={id}");
+            var responseMessage = await client.GetAsync($"Basket/BasketListByMenuTableWithProductName?id={id}");
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -28,17 +32,20 @@ namespace SignalRDine.WebUI.Controllers
             }
             return View();
         }
+
         public async Task<IActionResult> DeleteBasket(int id)
         {
-            id = int.Parse(TempData["id"].ToString());
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7263/api/Basket/{id}");
+            var menuTableId = TempData["id"];
+            var client = CreateClient();
+
+            var responseMessage = await client.DeleteAsync($"Basket/{id}");
+
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                // Index'e giderken id'yi tekrar gönderiyoruz
+                return RedirectToAction("Index", new { id = menuTableId });
             }
             return NoContent();
         }
-
     }
-    }
+}

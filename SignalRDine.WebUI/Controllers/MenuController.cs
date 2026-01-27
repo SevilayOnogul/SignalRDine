@@ -11,18 +11,15 @@ namespace SignalRDine.WebUI.Controllers
     public class MenuController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        public MenuController(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
-        public MenuController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
 
         public async Task<IActionResult> Index(int id)
         {
-            ViewBag.v= id;
-
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/Product/ProductListWithCategory");
+            ViewBag.v = id;
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync("Product/ProductListWithCategory");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -32,36 +29,23 @@ namespace SignalRDine.WebUI.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AddBasket(int id, int menuTableId)
         {
-            if (menuTableId == 0)
-            {
-                return BadRequest("MenuTableId 0 geliyor.");
-            }
+            if (menuTableId == 0) return BadRequest("Masa ID hatası.");
 
-            CreateBasketDto createBasketDto = new CreateBasketDto
-            {
-                ProductID = id,
-                MenuTableID = menuTableId
-            };
-
-       
-            var client = _httpClientFactory.CreateClient();
+            var createBasketDto = new CreateBasketDto { ProductID = id, MenuTableID = menuTableId };
+            var client = CreateClient();
             var jsonData = JsonConvert.SerializeObject(createBasketDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7263/api/Basket", content);
 
-            var client2=_httpClientFactory.CreateClient();
-            await client2.GetAsync("https://localhost:7263/api/MenuTables/ChangeMenuTableStatusToTrue?id=" + menuTableId);
+            var responseMessage = await client.PostAsync("Basket", content);
 
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            // Masayı doluya çekme
+            await client.GetAsync($"MenuTables/ChangeMenuTableStatusToTrue?id={menuTableId}");
+
+            if (responseMessage.IsSuccessStatusCode) return RedirectToAction("Index");
             return Json(createBasketDto);
         }
-
     }
 }

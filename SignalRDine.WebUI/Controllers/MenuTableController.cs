@@ -8,100 +8,77 @@ namespace SignalRDine.WebUI.Controllers
     public class MenuTableController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        public MenuTableController(IHttpClientFactory httpClientFactory) => _httpClientFactory = httpClientFactory;
 
-        public MenuTableController(IHttpClientFactory httpClientFactory)
-        {
-            _httpClientFactory = httpClientFactory;
-        }
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
 
         public async Task<IActionResult> Index()
         {
-            var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/MenuTables");
-            if(responseMessage.IsSuccessStatusCode)
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync("MenuTables");
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData=await responseMessage.Content.ReadAsStringAsync(); 
-                var value=JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(jsonData);
-                return View(value);
+                var values = JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(await responseMessage.Content.ReadAsStringAsync());
+                return View(values);
             }
             return View();
         }
 
         [HttpGet]
-        public IActionResult CreateMenuTable()
-        {
-            return View();
-        }
+        public IActionResult CreateMenuTable() => View();
 
         [HttpPost]
-        public async Task<IActionResult>CreateMenuTable(CreateMenuTableDto createMenuTableDto)
+        public async Task<IActionResult> CreateMenuTable(CreateMenuTableDto createMenuTableDto)
         {
             createMenuTableDto.Status = false;
-            var client = _httpClientFactory.CreateClient();
-            var jsonData=JsonConvert.SerializeObject(createMenuTableDto);
-            StringContent content =new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7263/api/MenuTables", content);
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var client = CreateClient();
+            var content = new StringContent(JsonConvert.SerializeObject(createMenuTableDto), Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("MenuTables", content);
+            if (responseMessage.IsSuccessStatusCode) return RedirectToAction("Index");
             return View();
-
         }
 
-        public async Task<IActionResult>DeleteMenuTable(int id)
+        public async Task<IActionResult> DeleteMenuTable(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage=await client.DeleteAsync($"https://localhost:7263/api/MenuTables/{id}");
-            if(responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-
+            var client = CreateClient();
+            var responseMessage = await client.DeleteAsync($"MenuTables/{id}");
+            if (responseMessage.IsSuccessStatusCode) return RedirectToAction("Index");
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> UpdateMenuTable(int id)
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7263/api/MenuTables/{id}");
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync($"MenuTables/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<UpdateMenuTableDto>(jsonData);
+                var values = JsonConvert.DeserializeObject<UpdateMenuTableDto>(await responseMessage.Content.ReadAsStringAsync());
                 return View(values);
             }
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> UpdateMenuTable(UpdateMenuTableDto updateMenuTableDto)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateMenuTableDto);
-            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7263/api/MenuTables", stringContent);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
+            var client = CreateClient();
+            var content = new StringContent(JsonConvert.SerializeObject(updateMenuTableDto), Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("MenuTables", content);
+            if (responseMessage.IsSuccessStatusCode) return RedirectToAction("Index");
             return View();
         }
 
-        [HttpGet]
         public async Task<IActionResult> TableListByStatus()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/MenuTables");
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync("MenuTables");
             if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(jsonData);
-                return View(value);
+                var values = JsonConvert.DeserializeObject<List<ResultMenuTableDto>>(await responseMessage.Content.ReadAsStringAsync());
+                return View(values);
             }
             return View();
-
         }
-
     }
 }

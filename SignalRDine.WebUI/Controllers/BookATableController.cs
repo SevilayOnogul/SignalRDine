@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
 using SignalRDine.WebUI.Dtos.BookingDtos;
 using SignalRDine.WebUI.Dtos.ContactDtos;
@@ -16,11 +15,16 @@ namespace SignalRDine.WebUI.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
+
+        // Merkezi URL yapısını kullanan yardımcı metot
+        private HttpClient CreateClient() => _httpClientFactory.CreateClient("SignalRClient");
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7263/api/Contact");
+            var client = CreateClient();
+            var responseMessage = await client.GetAsync("Contact");
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -29,39 +33,38 @@ namespace SignalRDine.WebUI.Controllers
                 if (firstContact != null)
                 {
                     ViewBag.location = firstContact.Location;
-
                 }
             }
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Index(CreateBookingDto createBookingDto)
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = CreateClient();
             var jsonData = JsonConvert.SerializeObject(createBookingDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://localhost:7263/api/Booking/", content);
+
+            var responseMessage = await client.PostAsync("Booking", content);
+
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index", "Default");
             }
-            else
+
+            var errorResponse = await responseMessage.Content.ReadFromJsonAsync<ApiValidationErrorResponse>();
+            if (errorResponse?.Errors != null)
             {
-                var errorResponse = await responseMessage.Content.ReadFromJsonAsync<ApiValidationErrorResponse>();
-                if (errorResponse?.Errors != null)
+                foreach (var error in errorResponse.Errors)
                 {
-                    foreach(var error in errorResponse.Errors)
+                    foreach (var errorMessage in error.Value)
                     {
-                        foreach(var errorMessage in error.Value)
-                        {
-                            ModelState.AddModelError(error.Key,errorMessage);
-                        }
+                        ModelState.AddModelError(error.Key, errorMessage);
                     }
                 }
-              
-                return View();
-
             }
+
+            return View();
         }
     }
 }

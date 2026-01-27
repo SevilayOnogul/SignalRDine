@@ -1,7 +1,9 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using SignalRDine.Api.Hubs;
+using SignalRDine.Api.Middleware;
 using SignalRDine.BusinessLayer.Abstract;
 using SignalRDine.BusinessLayer.Concrete;
 using SignalRDine.BusinessLayer.Container;
@@ -11,7 +13,21 @@ using SignalRDine.DataAccessLayer.Concrete;
 using SignalRDine.DataAccessLayer.EntityFramework;
 using System.Reflection;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+//  Serilog Configuration
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information() // Info, Warning, Error hepsi gelir
+    .WriteTo.Console()
+    .WriteTo.File(
+        "Logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+    )
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 // CORS ve SignalR
 builder.Services.AddCors(opt =>
@@ -24,22 +40,24 @@ builder.Services.AddCors(opt =>
         .AllowCredentials();
     });
 });
+
 builder.Services.AddSignalR();
 
+//  DbContext & AutoMapper
 builder.Services.AddDbContext<SignalRDineContext>();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Dependency Injection (Scoped Services)
 builder.Services.ContainerDependencies();
 
-
+//FluentValidation
 builder.Services.AddValidatorsFromAssemblyContaining<CreateBookingValidation>();
-
 builder.Services.AddFluentValidationAutoValidation(config =>
 {
     config.DisableDataAnnotationsValidation = true;
 });
 
+//Controllers
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -47,10 +65,15 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 var app = builder.Build();
-
+app.UseSerilogRequestLogging();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -60,6 +83,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapControllers();
 app.MapHub<SignalRHub>("/signalrhub");

@@ -4,10 +4,7 @@ namespace SignalRDine.WebUI.Controllers
 {
 	public class ProgressBarController : Controller
 	{
-		public IActionResult Index()
-		{
-			return View();
-		}
+		public IActionResult Index()=> View();
 
 
 	}

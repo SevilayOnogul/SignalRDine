@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SignalRDine.DtoLayer.IdentityDtos;
+using SignalRDine.WebUI.Dtos.IdentityDtos;
 using SignalRDine.EntityLayer.Entities;
-
 
 namespace SignalRDine.WebUI.Controllers
 {
@@ -11,19 +10,13 @@ namespace SignalRDine.WebUI.Controllers
     public class RegisterController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        public RegisterController(UserManager<AppUser> userManager) => _userManager = userManager;
 
-        public RegisterController(UserManager<AppUser> userManager)
-        {
-            _userManager = userManager;
-        }
         [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View();
 
         [HttpPost]
-        public async Task<IActionResult>Index(RegisterDto registerDto)
+        public async Task<IActionResult> Index(RegisterDto registerDto)
         {
             var appUser = new AppUser()
             {
@@ -32,12 +25,14 @@ namespace SignalRDine.WebUI.Controllers
                 Email = registerDto.Mail,
                 UserName = registerDto.Username
             };
+
             var result = await _userManager.CreateAsync(appUser, registerDto.Password);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
-                return RedirectToAction("Index","Login");
+                return RedirectToAction("Index", "Login");
             }
-            return View();  
+
+            return View();
         }
     }
 }
